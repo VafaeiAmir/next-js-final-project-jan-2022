@@ -3,10 +3,8 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 
 const homeTextStyle = css`
-  display: flex;
-  position: absolute;
-  justify-content: center;
-  margin: 220px 90px;
+  text-align: center;
+  margin: 50px;
 `;
 
 export default function Login() {

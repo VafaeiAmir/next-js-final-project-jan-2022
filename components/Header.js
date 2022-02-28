@@ -5,31 +5,31 @@ import Link from 'next/link';
 const headerStyle = css`
   background-color: #ffe6d4;
   text-align: center;
-  padding: 10px 15px;
+  padding: 1rem 7rem;
   border-radius: 10px;
   margin: 8px;
   a + a {
     margin: 15px;
     color: #660000;
+    font-size: 1.2rem;
   }
 `;
 
 const logoTextStyle = css`
-  font-size: 1.2rem;
+  text-align: start;
+  font-size: 1.5rem;
   color: #660000;
   font-weight: bold;
-`;
-const headerTextStyle = css`
-  color: #660000;
 `;
 
 export default function Header() {
   return (
     <header css={headerStyle}>
       <a css={logoTextStyle}>NICE RICE</a>
-      <a></a>
-      <Image src="/logo.jpg" alt="spoon logo" width={70} height={20} />
-      <a></a>
+      <a>
+        <Image src="/logo.jpg" alt="spoon logo" width={80} height={25} />
+      </a>
+
       <Link href="/">
         <a>Home</a>
       </Link>

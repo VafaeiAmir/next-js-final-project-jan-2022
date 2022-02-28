@@ -3,10 +3,9 @@ import Head from 'next/head';
 import Layout from '../components/Layout';
 
 const homeTextStyle = css`
-  display: flex;
-  position: absolute;
+  text-align: center;
   justify-content: center;
-  margin: 220px 90px;
+  margin: 50px;
 `;
 
 export default function Subscribe() {

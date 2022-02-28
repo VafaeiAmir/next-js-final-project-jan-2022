@@ -5,7 +5,8 @@ import Header from './Header';
 const rightGridStyles = css`
   display: flex;
   position: absolute;
-  padding: 335px 40px;
+  margin-top: 20px;
+  padding: 335px 60px;
   top: 54px;
   right: 13px;
   background-color: #edf6fd;
@@ -14,11 +15,11 @@ const rightGridStyles = css`
 const leftGridStyles = css`
   display: flex;
   position: absolute;
-  padding: 335px 40px;
+  margin-top: 20px;
+  padding: 335px 60px;
   top: 54px;
   left: 13px;
   background-color: #edf6fd;
-  margin-top: auto;
   border-radius: 10%;
 `;
 
