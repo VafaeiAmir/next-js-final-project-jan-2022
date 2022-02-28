@@ -7,7 +7,7 @@ const rightGridStyles = css`
   position: absolute;
   margin-top: 20px;
   padding: 335px 60px;
-  top: 54px;
+  top: 4rem;
   right: 13px;
   background-color: #edf6fd;
   border-radius: 10%;
@@ -17,7 +17,7 @@ const leftGridStyles = css`
   position: absolute;
   margin-top: 20px;
   padding: 335px 60px;
-  top: 54px;
+  top: 4rem;
   left: 13px;
   background-color: #edf6fd;
   border-radius: 10%;
