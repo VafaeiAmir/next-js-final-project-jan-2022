@@ -8,15 +8,15 @@ const homeTextStyle = css`
   margin: 50px;
 `;
 
-export default function Subscribe() {
+export default function Registration() {
   return (
     <Layout>
       <Head>
-        <title>Subscribe</title>
-        <meta name="description" content="Subscribe" />
+        <title>Registration</title>
+        <meta name="description" content="Registration" />
       </Head>
       <div css={homeTextStyle}>
-        <h1>Subscribe</h1>
+        <h1>Registration</h1>
       </div>
     </Layout>
   );

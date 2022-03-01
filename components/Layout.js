@@ -1,27 +1,27 @@
-import { css } from '@emotion/react';
+// import { css } from '@emotion/react';
 import Head from 'next/head';
 import Header from './Header';
 
-const rightGridStyles = css`
-  display: flex;
-  position: absolute;
-  margin-top: 20px;
-  padding: 335px 60px;
-  top: 4rem;
-  right: 13px;
-  background-color: #edf6fd;
-  border-radius: 10%;
-`;
-const leftGridStyles = css`
-  display: flex;
-  position: absolute;
-  margin-top: 20px;
-  padding: 335px 60px;
-  top: 4rem;
-  left: 13px;
-  background-color: #edf6fd;
-  border-radius: 10%;
-`;
+// const rightGridStyles = css`
+//   display: flex;
+//   position: absolute;
+//   margin-top: 20px;
+//   padding: 335px 60px;
+//   top: 4rem;
+//   right: 13px;
+//   background-color: #edf6fd;
+//   border-radius: 10%;
+// `;
+// const leftGridStyles = css`
+//   display: flex;
+//   position: absolute;
+//   margin-top: 20px;
+//   padding: 335px 60px;
+//   top: 4rem;
+//   left: 13px;
+//   background-color: #edf6fd;
+//   border-radius: 10%;
+// `;
 
 export default function Layout(props) {
   return (
@@ -31,8 +31,8 @@ export default function Layout(props) {
       </Head>
       <Header />
       <main>{props.children}</main>
-      <div css={rightGridStyles}></div>
-      <div css={leftGridStyles}></div>
+      {/* <div css={rightGridStyles}></div>
+      <div css={leftGridStyles}></div> */}
     </>
   );
 }

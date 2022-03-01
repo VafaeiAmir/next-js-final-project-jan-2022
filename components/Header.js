@@ -4,44 +4,52 @@ import Link from 'next/link';
 
 const headerStyle = css`
   background-color: #ffe6d4;
-  text-align: center;
-  padding: 1rem 7rem;
   border-radius: 10px;
-  margin: 8px;
+  padding: 10px 10px;
+  margin: 8px 8px 20px;
+  font-size: 1.2rem;
+  display: flex;
+
   a + a {
-    margin: 15px;
+    margin-left: 20px;
+    position: relative;
+  }
+  > div:first-child {
+    margin-right: auto;
     color: #660000;
-    font-size: 1.2rem;
   }
 `;
-
 const logoTextStyle = css`
-  text-align: start;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  text-justify: auto;
   color: #660000;
   font-weight: bold;
 `;
-
+//
 export default function Header() {
   return (
-    <header css={headerStyle}>
-      <a css={logoTextStyle}>NICE RICE</a>
-      <a>
-        <Image src="/logo.jpg" alt="spoon logo" width={80} height={25} />
-      </a>
-
+    <nav css={headerStyle}>
+      <div>
+        <a css={logoTextStyle}>NICE RICE</a>
+        <a></a>
+        <Image src="/logo.jpg" alt="spoon logo" width={85} height={30} />
+        <a></a>
+      </div>
       <Link href="/">
         <a>Home</a>
+      </Link>
+      <Link href="/recipes">
+        <a>Recipes</a>
       </Link>
       <Link href="/about">
         <a>About</a>
       </Link>
       <Link href="/login">
-        <a>Recipes Log In/Out</a>
+        <a>Login</a>
       </Link>
-      <Link href="/subscribe">
-        <a>Subscribe</a>
+      <Link href="/registration">
+        <a>Registration</a>
       </Link>
-    </header>
+    </nav>
   );
 }

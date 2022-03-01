@@ -14,16 +14,16 @@ const logImageStyle = css`
   justify-content: space-around;
 `;
 
-export default function Login() {
+export default function Recipes() {
   return (
     <Layout>
       <Head>
-        <title>Log In</title>
-        <meta name="description" content="Log" />
+        <title>Recipes</title>
+        <meta name="description" content="Recipes" />
       </Head>
 
       <div css={logImageStyle}>
-        <h1 css={logTextStyle}>Login</h1>
+        <h1 css={logTextStyle}>Recipes</h1>
         <Image
           src="/home-pics/Rice 1.jpg"
           alt="tow Spoons with rice"
