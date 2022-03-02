@@ -6,8 +6,11 @@ import Layout from '../components/Layout';
 const homeText2Style = css`
   text-align: center;
   font-size: 1.5rem;
-  margin-left: 130px;
-  margin-right: 130px;
+  line-height: 1;
+  margin-left: 140px;
+  margin-right: 140px;
+  margin-top: 1rem;
+  color: #660000;
 `;
 const homeImageStyle = css`
   display: flex;
@@ -26,8 +29,8 @@ export default function Home() {
         <Image
           src="/home-pics/spoons1.jpg"
           alt="tow Spoons with rice"
-          width={900}
-          height={600}
+          width={880}
+          height={580}
         />
       </div>
       <div css={homeText2Style}>

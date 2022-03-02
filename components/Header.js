@@ -13,10 +13,10 @@ const headerStyle = css`
   a + a {
     margin-left: 20px;
     position: relative;
+    color: #660000;
   }
   > div:first-child {
     margin-right: auto;
-    color: #660000;
   }
 `;
 const logoTextStyle = css`

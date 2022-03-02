@@ -11,7 +11,7 @@ function MyApp({ Component, pageProps }) {
             font-family: 'Times New Roman', Times, serif;
           }
           main {
-            margin: 0 8px;
+            margin: 0 1px;
           }
         `}
       />

@@ -4,14 +4,27 @@ import Image from 'next/image';
 import Layout from '../components/Layout';
 
 const logTextStyle = css`
+  display: grid;
+  justify-content: center;
   text-align: center;
-  margin-top: 1rem;
+`;
+const loginButtonStyle = css`
+  padding: 0.2rem;
+  margin: 1rem 5rem;
+  margin-right: 17px;
+  background-color: lightblue;
+  border-radius: 10px;
 `;
 const logImageStyle = css`
-  display: flex;
+  display: grid;
+  justify-content: space-around;
   padding-left: 130px;
   padding-right: 130px;
-  justify-content: space-around;
+`;
+const lableStyle = css`
+  justify-content: center;
+  text-align: end;
+  padding: 0.3rem 0;
 `;
 
 export default function Login() {
@@ -19,16 +32,24 @@ export default function Login() {
     <Layout>
       <Head>
         <title>Log In</title>
-        <meta name="description" content="Log" />
+        <meta name="description" content="Login on this website" />
       </Head>
-
+      <div css={logTextStyle}>
+        <h1>Login</h1>
+        <label css={lableStyle}>
+          Username: <input />
+        </label>
+        <label css={lableStyle}>
+          Password: <input />
+        </label>
+        <button css={loginButtonStyle}>Login</button>
+      </div>
       <div css={logImageStyle}>
-        <h1 css={logTextStyle}>Login</h1>
         <Image
-          src="/home-pics/Rice 1.jpg"
-          alt="tow Spoons with rice"
-          width={600}
-          height={800}
+          src="/home-pics/adviye.jpg"
+          alt="4 Spoons with spices"
+          width={800}
+          height={500}
         />
       </div>
     </Layout>
