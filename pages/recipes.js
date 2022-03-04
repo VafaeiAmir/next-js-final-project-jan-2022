@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import Layout from '../components/Layout';
-
-// import styles from '../styles/pagesStyles.css';
+import recipesDatabase from '../util/database';
 
 const downTextStyle = css`
   text-align: center;
@@ -30,6 +30,12 @@ const mainNameStyle = css`
   margin-right: 130px;
   padding: 0 2rem 0;
   color: #660000;
+`;
+const recipeTextStyle = css`
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
 `;
 
 export default function Recipes(props) {
@@ -68,22 +74,26 @@ export default function Recipes(props) {
         />
       </div>
       <div css={mainNameStyle}>
-        <h1>TAHCHIN</h1>
-        <h1>LUBIA POLO</h1>
-        <h1>SABZI POLO</h1>
-        <h1>BAGHALI POLO</h1>
-      </div>
-      <div css={mainNameStyle}>
-        <a>jsjflsdkgfnlsk</a>
-        <a>jsjflsdkgfnlsk</a>
-        <a>jsjflsdkgfnlsk</a>
-        <a>jsjflsdkgfnlsk</a>
+        {props.recipes.map((recipe) => {
+          return (
+            <div key={`recipe-${recipe.id}`} css={recipeTextStyle}>
+              <Link href={`/recipes/${recipe.id}`}>
+                <a>
+                  <h1>{recipe.name}</h1>
+                  {recipe.text}
+                </a>
+              </Link>
+            </div>
+          );
+        })}
       </div>
     </Layout>
   );
 }
+// every code from here will run in Node.js
+// Connect to database
 export function getServerSideProps() {
   return {
-    props: {},
+    props: { recipes: recipesDatabase },
   };
 }

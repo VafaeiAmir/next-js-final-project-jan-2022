@@ -7,10 +7,16 @@ const logTextStyle = css`
   display: grid;
   justify-content: center;
   text-align: center;
+  /* border-radius: 10px;
+  border: 1px solid #ccc; */
+  /* padding: 1rem;
+  margin-bottom: 5px;
+  margin-left: 610px;
+  margin-right: 610px; */
 `;
 const loginButtonStyle = css`
   padding: 0.2rem;
-  margin: 1rem 5rem;
+  margin: 0.2rem 5rem;
   margin-right: 17px;
   background-color: lightblue;
   border-radius: 10px;
@@ -25,6 +31,10 @@ const lableStyle = css`
   justify-content: center;
   text-align: end;
   padding: 0.3rem 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 5px;
 `;
 
 export default function Login() {

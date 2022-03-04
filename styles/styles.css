@@ -26,3 +26,18 @@
   font-size: 2.8rem;
   color: #660000;
 }
+
+.homeText2 {
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 1;
+  margin-left: 140px;
+  margin-right: 140px;
+  margin-top: 1rem;
+  color: #660000;
+}
+.homeImage {
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}

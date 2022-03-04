@@ -32,7 +32,7 @@ export default function Registration() {
       <a css={regisTextStyle}>Registration</a>
       <div css={diffRiceImageStyle}>
         <Image
-          src="/home-pics/3Rices.jpg"
+          src="/home-pics/threeRices.jpg"
           alt="three different types of rice"
           height={320}
           width={1280}

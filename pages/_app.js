@@ -1,23 +1,7 @@
-import { css, Global } from '@emotion/react';
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
-  return (
-    <>
-      <Global
-        styles={css`
-          html,
-          body {
-            margin: 1px;
-            font-family: 'Times New Roman', Times, serif;
-          }
-          main {
-            margin: 0 1px;
-          }
-        `}
-      />
-      <Component {...pageProps} />
-    </>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;

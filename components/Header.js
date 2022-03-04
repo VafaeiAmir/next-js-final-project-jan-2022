@@ -6,7 +6,7 @@ const headerStyle = css`
   background-color: #ffe6d4;
   border-radius: 10px;
   padding: 10px 10px;
-  margin: 8px 8px 20px;
+  margin: 8px 10px 5px;
   font-size: 1.2rem;
   display: flex;
 
@@ -14,6 +14,10 @@ const headerStyle = css`
     margin-left: 20px;
     position: relative;
     color: #660000;
+    :hover {
+      color: red;
+      transition: 0.3s;
+    }
   }
   > div:first-child {
     margin-right: auto;
@@ -33,7 +37,6 @@ export default function Header() {
         <a css={logoTextStyle}>NICE RICE</a>
         <a></a>
         <Image src="/logo.jpg" alt="spoon logo" width={85} height={30} />
-        <a></a>
       </div>
       <Link href="/">
         <a>Home</a>
