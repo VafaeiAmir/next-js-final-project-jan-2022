@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Layout from '../../components/Layout';
-import recipesDatabase from '../../util/database';
+import { getRecipeById } from '../../util/database';
 
 const dynamicPageStyle = css`
   display: grid;
@@ -39,18 +39,12 @@ export default function SingleRecipe(props) {
   );
 }
 
-export function getServerSideProps(context) {
+export async function getServerSideProps(context) {
   const recipeId = context.query.recipeId;
-  const matchingRecipe = recipesDatabase.find((recipe) => {
-    if (recipe.id === recipeId) {
-      return true;
-    } else {
-      return false;
-    }
-  });
+  const recipe = await getRecipeById(recipeId);
   return {
     props: {
-      recipe: matchingRecipe,
+      recipe: recipe,
       // recipeId: recipeId,
     },
   };

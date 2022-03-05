@@ -40,7 +40,7 @@ export default function Registration() {
       </div>
       <div css={threeImagestyle}>
         <Image
-          src="/home-pics/Rice2.jpg"
+          src="/home-pics/4.jpg"
           alt="tow hands of rice"
           height={300}
           width={270}

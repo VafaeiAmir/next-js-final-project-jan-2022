@@ -11,6 +11,8 @@
   "dependencies": {
     "@emotion/babel-plugin": "^11.7.2",
     "@emotion/react": "^11.8.1",
+    "camelcase-keys": "^7.0.2",
+    "dotenv": "^16.0.0",
     "dotenv-save": "^1.2.0",
     "enf": "^0.0.0-alpha-1",
     "ley": "^0.7.1",

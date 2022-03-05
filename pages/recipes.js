@@ -3,7 +3,9 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import Layout from '../components/Layout';
-import recipesDatabase from '../util/database';
+import { getRecipes } from '../util/database';
+
+// import recipesDatabase, { readRecipes } from '../util/database';
 
 const downTextStyle = css`
   text-align: center;
@@ -49,25 +51,25 @@ export default function Recipes(props) {
 
       <div css={recipesImageStyle}>
         <Image
-          src="/home-pics/tahchin.jpg"
+          src="/home-pics/1.jpg"
           alt="a picture of Tahchin"
           width={300}
           height={200}
         />
         <Image
-          src="/home-pics/lubia.jpg"
+          src="/home-pics/2.jpg"
           alt="a picture of Lubia Polo"
           width={300}
           height={200}
         />
         <Image
-          src="/home-pics/sabzi.jpg"
+          src="/home-pics/3.jpg"
           alt="a picture of Sabzi Polo"
           width={300}
           height={200}
         />
         <Image
-          src="/home-pics/Rice2.jpg"
+          src="/home-pics/4.jpg"
           alt="a picture of Baghali Polo"
           width={300}
           height={200}
@@ -80,7 +82,7 @@ export default function Recipes(props) {
               <Link href={`/recipes/${recipe.id}`}>
                 <a>
                   <h1>{recipe.name}</h1>
-                  {recipe.text}
+                  <a>{recipe.text}</a>
                 </a>
               </Link>
             </div>
@@ -92,8 +94,10 @@ export default function Recipes(props) {
 }
 // every code from here will run in Node.js
 // Connect to database
-export function getServerSideProps() {
+export async function getServerSideProps() {
+  const recipes = await getRecipes();
+
   return {
-    props: { recipes: recipesDatabase },
+    props: { recipes: recipes },
   };
 }
