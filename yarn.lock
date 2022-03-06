@@ -1668,7 +1668,7 @@ levn@^0.4.1:
 
 ley@^0.7.1:
   version "0.7.1"
-  resolved "https://registry.npmjs.org/ley/-/ley-0.7.1.tgz"
+  resolved "https://registry.yarnpkg.com/ley/-/ley-0.7.1.tgz#dadb1690aab066713a67ebad2bed782d4b730ff6"
   integrity sha512-oVgyFF+i/Uzm5q6HYY5jT+ADHkv2Z1wh8LNt2dYLvWiKN5tsEjzWmWAk8gn1VVpwI8Drj+lLYIHio7A67zskUA==
   dependencies:
     kleur "^4.1.0"
