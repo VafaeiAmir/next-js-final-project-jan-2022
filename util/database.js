@@ -1,5 +1,4 @@
-import { notDeepStrictEqual } from 'assert';
-import { config } from 'dotenv';
+import { config } from 'dotenv-safe';
 import postgres from 'postgres';
 
 // import camelcaseKeys from 'camelcase-keys';

@@ -1,6 +1,7 @@
 exports.up = async (sql) => {
+  console.log('Creating table recipes');
   await sql`
-	  CREATE TABLE recipes(
+	  CREATE TABLE recipes (
   	id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   	name varchar(100) NOT NULL,
   	text varchar(100) NOT NULL,
