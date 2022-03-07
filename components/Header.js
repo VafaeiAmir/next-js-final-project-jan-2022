@@ -45,7 +45,7 @@ export default function Header() {
         <a>Recipes</a>
       </Link>
       <Link href="/about">
-        <a>About</a>
+        <a data-test-id="header-about-link">About</a>
       </Link>
       <Link href="/login">
         <a>Login</a>
