@@ -5,12 +5,26 @@ import Layout from '../components/Layout';
 
 const regisTextStyle = css`
   color: #660000;
+  text-align: center;
+  position: absolute;
+  font-size: 260%;
+  top: 1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 5rem !important;
+`;
+const containerStyle = css`
+  position: relative;
+  text-align: center;
 `;
 const diffRiceImageStyle = css`
   display: grid;
   justify-content: center;
-  margin-left: 130px;
-  margin-right: 130px;
+  /* margin: auto; */
+  /* margin-left: 100px;
+  margin-right: 100px; */
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 const threeImagestyle = css`
   display: grid;
@@ -29,14 +43,16 @@ export default function Registration() {
         <title>Registration</title>
         <meta name="description" content="Registration" />
       </Head>
-      <a css={regisTextStyle}>Registration</a>
-      <div css={diffRiceImageStyle}>
-        <Image
-          src="/home-pics/threeRices.jpg"
-          alt="three different types of rice"
-          height={320}
-          width={1280}
-        />
+      <div css={containerStyle}>
+        <div css={diffRiceImageStyle}>
+          <Image
+            src="/home-pics/threeRices.jpg"
+            alt="three different types of rice"
+            height={320}
+            width={1180}
+          />
+        </div>
+        <h1 css={regisTextStyle}>Registration</h1>
       </div>
       <div css={threeImagestyle}>
         <Image

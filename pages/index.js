@@ -18,9 +18,9 @@ const homeImageStyle = css`
   margin-bottom: -10px;
   border-radius: 20px;
   /* border: 5px solid #f3dede; */
-  padding: 4px;
-  margin-left: 200px;
-  margin-right: 200px;
+  /* padding: 1px;
+  margin-left: 1px;
+  margin-right: 1px; */
 `;
 const kochSytle = css`
   font-size: 2rem;

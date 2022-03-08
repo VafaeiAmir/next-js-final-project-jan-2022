@@ -7,12 +7,15 @@ const logTextStyle = css`
   display: grid;
   justify-content: center;
   text-align: center;
-  /* border-radius: 10px;
-  border: 1px solid #ccc; */
-  /* padding: 1rem;
-  margin-bottom: 5px;
-  margin-left: 610px;
-  margin-right: 610px; */
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 10rem !important;
+`;
+const containerStyle = css`
+  position: relative;
+  text-align: center;
 `;
 const loginButtonStyle = css`
   padding: 0.2rem;
@@ -24,8 +27,8 @@ const loginButtonStyle = css`
 const logImageStyle = css`
   display: grid;
   justify-content: space-around;
-  padding-left: 130px;
-  padding-right: 130px;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 const lableStyle = css`
   justify-content: center;
@@ -44,23 +47,26 @@ export default function Login() {
         <title>Log In</title>
         <meta name="description" content="Login on this website" />
       </Head>
-      <div css={logTextStyle}>
-        <h1>Login</h1>
-        <label css={lableStyle}>
-          Username: <input />
-        </label>
-        <label css={lableStyle}>
-          Password: <input />
-        </label>
-        <button css={loginButtonStyle}>Login</button>
-      </div>
-      <div css={logImageStyle}>
-        <Image
-          src="/home-pics/adviye.jpg"
-          alt="4 Spoons with spices"
-          width={800}
-          height={500}
-        />
+
+      <div css={containerStyle}>
+        <div css={logImageStyle}>
+          <Image
+            src="/home-pics/adviye.jpg"
+            alt="4 Spoons with spices"
+            width={900}
+            height={600}
+          />
+        </div>
+        <div css={logTextStyle}>
+          <h1>Login</h1>
+          <label css={lableStyle}>
+            Username: <input />
+          </label>
+          <label css={lableStyle}>
+            Password: <input />
+          </label>
+          <button css={loginButtonStyle}>Login</button>
+        </div>
       </div>
     </Layout>
   );
