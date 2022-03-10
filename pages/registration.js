@@ -1,18 +1,9 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { Fragment, useState } from 'react';
 import Layout from '../components/Layout';
 
-const regisTextStyle = css`
-  color: #660000;
-  text-align: center;
-  position: absolute;
-  font-size: 260%;
-  top: 1%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding-top: 5rem !important;
-`;
 const containerStyle = css`
   position: relative;
   text-align: center;
@@ -35,13 +26,76 @@ const threeImagestyle = css`
   margin: 0.5rem 0;
   padding: 0 7rem 0;
 `;
+const lableStyle = css`
+  justify-content: center;
+  text-align: end;
+  padding: 0.3rem 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 5px;
+`;
+const loginButtonStyle = css`
+  padding: 0.2rem;
+  margin: 0.2rem 5rem;
+  margin-right: 17px;
+  background-color: lightblue;
+  border-radius: 10px;
+`;
+const logTextStyle = css`
+  display: grid;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 10rem !important;
+`;
 
 export default function Registration() {
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+
+  async function deleteUser() {
+    const response = await fetch(`/api/register`, {
+      method: 'DELETE',
+    });
+    const deleteUser = response.json();
+    const newUserList = users.filter(
+      (User) => deleteUser.userName !== User.userName,
+    );
+
+    setUserName(newUserList);
+  }
+
+  async function createUser() {
+    // alert('Hello');
+    if (!userName || !password) {
+      console.log('I need more data');
+      return;
+    }
+    const response = await fetch(`/api/register`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userName: userName,
+        password: password,
+      }),
+    });
+    const createdUser = await response.json();
+    console.log(createdUser);
+    setUserName('');
+    setPassword('');
+  }
+
   return (
     <Layout>
       <Head>
         <title>Registration</title>
-        <meta name="description" content="Registration" />
+        <meta name="description" content="Register on this website" />
       </Head>
       <div css={containerStyle}>
         <div css={diffRiceImageStyle}>
@@ -52,7 +106,39 @@ export default function Registration() {
             width={1180}
           />
         </div>
-        <h1 css={regisTextStyle}>Registration</h1>
+        <div css={logTextStyle}>
+          <h1>Register</h1>
+
+          <label css={lableStyle}>
+            Username:{' '}
+            <input
+              onChange={(event) => setUserName(event.currentTarget.value)}
+              value={userName}
+            />
+          </label>
+          <label css={lableStyle}>
+            Password:{' '}
+            <input
+              onChange={(event) => setPassword(event.currentTarget.value)}
+              value={password}
+            />
+          </label>
+          <button onClick={() => createUser()} css={loginButtonStyle}>
+            Register
+          </button>
+          {userName.map((User) => (
+            <Fragment key={User.userName}>
+              <input value={User.userName} />
+              <button
+                onClick={() => {
+                  deleteUser(User.userName).catch(() => {});
+                }}
+              >
+                Delete User
+              </button>
+            </Fragment>
+          ))}
+        </div>
       </div>
       <div css={threeImagestyle}>
         <Image

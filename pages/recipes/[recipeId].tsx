@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Layout from '../../components/Layout';
@@ -14,13 +15,25 @@ const ingredStyle = css`
   width: 250px;
 `;
 
-export default function SingleRecipe(props) {
+export type Recipe = {
+  id: number;
+  name: string;
+  ingredients: string;
+  text: string;
+};
+
+type Props = {
+  recipe: Recipe;
+};
+
+export default function SingleRecipe(props: Props) {
   return (
     <Layout>
       <Head>
         <title>{props.recipe.name}</title>
         <meta
-          discription={`${props.recipe.name} is a persian dish that can be cooked with rice`}
+          name="description"
+          content={`${props.recipe.name} is a persian dish that can be cooked with rice`}
         />
       </Head>
       <div css={dynamicPageStyle}>
@@ -39,7 +52,7 @@ export default function SingleRecipe(props) {
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const recipeId = context.query.recipeId;
   const recipe = await getRecipeById(recipeId);
   return {

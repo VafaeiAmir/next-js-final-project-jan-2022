@@ -41,7 +41,7 @@ export default function Header() {
       <Link href="/">
         <a>Home</a>
       </Link>
-      <Link href="/recipes">
+      <Link href="/recipes/index">
         <a>Recipes</a>
       </Link>
       <Link href="/about">
