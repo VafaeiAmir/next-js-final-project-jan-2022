@@ -10,13 +10,13 @@ import {
 } from '../../util/database';
 
 type LoginRequestBody = {
-  username: string,
-  password: string,
-  csrfToken: string,
+  username: string;
+  password: string;
+  csrfToken: string;
 };
 
 type LoginNextApiRequest = Omit<NextApiRequest, 'body'> & {
-  body: LoginRequestBody,
+  body: LoginRequestBody;
 };
 
 export type LoginResponseBody =

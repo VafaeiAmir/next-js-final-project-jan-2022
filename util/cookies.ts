@@ -16,10 +16,10 @@ export function getParsedCookie(key: string) {
   }
 }
 
-type LikedRecipe = { id: string; stars: number };
-type LikedRecipes = LikedRecipe[];
+type LikedAnimal = { id: string; stars: number };
+type LikedAnimals = LikedAnimal[];
 
-export function setParsedCookie(key: string, value: LikedRecipes) {
+export function setParsedCookie(key: string, value: LikedAnimals) {
   Cookies.set(key, JSON.stringify(value));
 }
 
@@ -27,7 +27,7 @@ export function deleteCookie(key: string) {
   Cookies.remove(key);
 }
 
-export function stringifyCookieValue(value: LikedRecipes) {
+export function stringifyCookieValue(value: LikedAnimals) {
   return JSON.stringify(value);
 }
 

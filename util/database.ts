@@ -1,9 +1,9 @@
+import camelcaseKeys from 'camelcase-keys';
 import { config } from 'dotenv-safe';
-// import { Session } from 'inspector';
 import postgres from 'postgres';
-import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku.js';
+// import { Session } from 'inspector';
+import setPostgresDefaultsOnHeroku from './setPostgresDefaultOnHeroku';
 
-// import camelcaseKeys from 'camelcase-keys';
 setPostgresDefaultsOnHeroku();
 
 config();
@@ -15,6 +15,7 @@ declare module globalThis {
 
 function connectOneTimeToDatabase() {
   let sql;
+
   if (process.env.NODE_ENV === 'production' && process.env.DATABASE_URL) {
     sql = postgres();
     // Heroku needs SSL connections but
@@ -106,7 +107,7 @@ export async function getUserById(id: number) {
     WHERE
       id = ${id}
   `;
-  return user;
+  return user && camelcaseKeys(user);
 }
 
 export async function getUserByValidSessionToken(token: string | undefined) {
@@ -123,14 +124,14 @@ export async function getUserByValidSessionToken(token: string | undefined) {
       sessions.user_id = users.id AND
       sessions.expiry_timestamp > now()
   `;
-  return user;
+  return user && camelcaseKeys(user);
 }
 
 export async function getUserByUsername(username: string) {
   const [user] = await sql<[{ id: number } | undefined]>`
     SELECT id FROM users WHERE username = ${username}
   `;
-  return user;
+  return user && camelcaseKeys(user);
 }
 
 export async function getUserWithPasswordHashByUsername(username: string) {
@@ -144,7 +145,7 @@ export async function getUserWithPasswordHashByUsername(username: string) {
     WHERE
       username = ${username}
   `;
-  return user;
+  return user && camelcaseKeys(user);
 }
 
 export async function createUser(username: string, passwordHash: string) {
@@ -157,7 +158,7 @@ export async function createUser(username: string, passwordHash: string) {
       id,
       username
   `;
-  return user;
+  return camelcaseKeys(user);
 }
 
 type Session = {
@@ -180,7 +181,7 @@ export async function getValidSessionByToken(token: string | undefined) {
 
   await deleteExpiredSessions();
 
-  return session;
+  return session && camelcaseKeys(session);
 }
 
 export async function createSession(token: string, userId: number) {
@@ -196,7 +197,7 @@ export async function createSession(token: string, userId: number) {
 
   await deleteExpiredSessions();
 
-  return;
+  return camelcaseKeys(session);
 }
 
 export async function deleteSessionByToken(token: string) {
@@ -207,7 +208,7 @@ export async function deleteSessionByToken(token: string) {
       token = ${token}
     RETURNING *
   `;
-  return session;
+  return session && camelcaseKeys(session);
 }
 
 export async function deleteExpiredSessions() {
@@ -219,5 +220,5 @@ export async function deleteExpiredSessions() {
     RETURNING *
   `;
 
-  return sessions.map((session: string) => session);
+  return sessions.map((session) => camelcaseKeys(session));
 }

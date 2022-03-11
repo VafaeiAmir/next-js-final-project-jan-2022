@@ -29,7 +29,7 @@ const logoTextStyle = css`
   color: #660000;
   font-weight: bold;
 `;
-//
+
 export default function Header() {
   return (
     <nav css={headerStyle}>
@@ -41,7 +41,7 @@ export default function Header() {
       <Link href="/">
         <a>Home</a>
       </Link>
-      <Link href="/recipes/index">
+      <Link href="/recipes">
         <a>Recipes</a>
       </Link>
       <Link href="/about">

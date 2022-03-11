@@ -10,10 +10,12 @@ const aboutText2Style = css`
   text-align: center;
   margin: 80px;
 `;
-
-export default function About() {
+type Props = {
+  userObject: { username: string };
+};
+export default function About(props: Props) {
   return (
-    <Layout>
+    <Layout userObject={props.userObject}>
       <Head>
         <title>About</title>
         <meta name="description" content="About the team" />

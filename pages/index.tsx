@@ -1,6 +1,7 @@
 import { css } from '@emotion/react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useState } from 'react';
 import Layout from '../components/Layout';
 
 const homeText2Style = css`
@@ -17,10 +18,6 @@ const homeImageStyle = css`
   justify-content: center;
   margin-bottom: -10px;
   border-radius: 20px;
-  /* border: 5px solid #f3dede; */
-  /* padding: 1px;
-  margin-left: 1px;
-  margin-right: 1px; */
 `;
 const kochSytle = css`
   font-size: 2rem;
@@ -40,12 +37,26 @@ const buttonStyle = css`
   }
 `;
 
-export default function Home() {
+type Props = {
+  userObject: { username: string };
+};
+
+export default function Home(props: Props) {
+  const [userId, setUserId] = useState<number>();
+  function changeUserId(id: number) {
+    setUserId(id);
+  }
+  // Avoid error if userId is undefined
+  if (typeof userId === 'number') {
+    const multipliedUserId = userId * 2;
+    changeUserId(multipliedUserId);
+  }
+
   return (
-    <Layout>
+    <Layout userObject={props.userObject}>
       <Head>
         <title>Home</title>
-        <meta name="description" content="Home" />
+        <meta name="description" content="Home page" />
       </Head>
 
       <div css={homeImageStyle}>
