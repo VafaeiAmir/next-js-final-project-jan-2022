@@ -1,9 +1,9 @@
 import { css } from '@emotion/react';
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Layout from '../../components/Layout';
-import { getRecipeById } from '../../util/database';
+import { getRecipeById, Recipe } from '../../util/database';
 
 const dynamicPageStyle = css`
   display: grid;
@@ -15,20 +15,14 @@ const ingredStyle = css`
   width: 250px;
 `;
 
-export type Recipe = {
-  id: number;
-  name: string;
-  ingredients: string;
-  text: string;
-};
-
 type Props = {
   recipe: Recipe;
+  userObject: { username: string };
 };
 
 export default function SingleRecipe(props: Props) {
   return (
-    <Layout>
+    <Layout userObject={props.userObject}>
       <Head>
         <title>{props.recipe.name}</title>
         <meta
@@ -52,9 +46,17 @@ export default function SingleRecipe(props: Props) {
   );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getServerSideProps(
+  context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<{ recipe?: Recipe }>> {
   const recipeId = context.query.recipeId;
-  const recipe = await getRecipeById(recipeId);
+
+  // Animal id is not correct type
+  if (!recipeId || Array.isArray(recipeId)) {
+    return { props: {} };
+  }
+
+  const recipe = await getRecipeById(parseInt(recipeId));
   return {
     props: {
       recipe: recipe,

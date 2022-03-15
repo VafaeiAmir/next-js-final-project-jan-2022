@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import bcrypt from 'bcrypt';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { verifyCsrfToken } from '../../util/auth';
+import { createSerializedRegisterSessionTokenCookie } from '../../util/cookies';
 import {
   createSession,
   createUser,
@@ -83,6 +84,17 @@ export default async function registerHandler(
     const session = await createSession(token, user.id);
 
     console.log(session);
+    // 3. Serialize the cookie
+    const serializedCookie = await createSerializedRegisterSessionTokenCookie(
+      session.token,
+    );
+
+    // 4. Add the cookie to the header response
+    response
+      .status(201)
+      .setHeader('Set-Cookie', serializedCookie)
+      .json({ user: user });
+    return;
   }
   response.status(405).json({
     errors: [

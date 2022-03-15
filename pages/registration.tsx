@@ -146,22 +146,22 @@ export default function Registration(props: Props) {
               }
 
               props.refreshUserProfile();
-              await router.push('/login');
+              await router.push('/');
             }}
           >
             <label css={lableStyle}>
               Username:{' '}
               <input
-                onChange={(event) => setUserName(event.currentTarget.value)}
                 value={userName}
+                onChange={(event) => setUserName(event.currentTarget.value)}
               />
             </label>
             <label css={lableStyle}>
               Password:{' '}
               <input
                 type="password"
-                onChange={(event) => setPassword(event.currentTarget.value)}
                 value={password}
+                onChange={(event) => setPassword(event.currentTarget.value)}
               />
             </label>
             <button css={loginButtonStyle}>Register</button>
@@ -205,7 +205,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   ) {
     return {
       redirect: {
-        destination: `https://${context.req.headers.host}/register`,
+        destination: `https://${context.req.headers.host}/registration`,
         permanent: true,
       },
     };

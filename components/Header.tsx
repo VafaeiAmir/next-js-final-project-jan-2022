@@ -1,6 +1,8 @@
-import { css } from '@emotion/react';
+import { css, Interpolation, Theme } from '@emotion/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { AnchorHTMLAttributes } from 'react';
+import { User } from '../util/database';
 
 const headerStyle = css`
   background-color: #ffe6d4;
@@ -29,10 +31,22 @@ const logoTextStyle = css`
   color: #660000;
   font-weight: bold;
 `;
+type Props = {
+  userObject?: User;
+};
 
-export default function Header() {
+function Anchor({
+  children,
+  ...restProps
+}: AnchorHTMLAttributes<HTMLAnchorElement> & {
+  css?: Interpolation<Theme>;
+}) {
+  return <a {...restProps}>{children}</a>;
+}
+
+export default function Header(props: Props) {
   return (
-    <nav css={headerStyle}>
+    <header css={headerStyle}>
       <div>
         <a css={logoTextStyle}>NICE RICE</a>
         <a></a>
@@ -47,12 +61,23 @@ export default function Header() {
       <Link href="/about">
         <a data-test-id="header-about-link">About</a>
       </Link>
-      <Link href="/login">
-        <a>Login</a>
+      <Link href="/users/protected-user">
+        <a data-test-id="header-management-link">Protected-User</a>
       </Link>
-      <Link href="/registration">
-        <a>Registration</a>
-      </Link>
-    </nav>
+      {props.userObject && <div>{props.userObject.username}</div>}
+
+      {props.userObject ? (
+        <Anchor href="/logout">Logout</Anchor>
+      ) : (
+        <>
+          <Link href="/login">
+            <a>Login</a>
+          </Link>
+          <Link href="/registration">
+            <a>Registration</a>
+          </Link>
+        </>
+      )}
+    </header>
   );
 }

@@ -1,8 +1,9 @@
 import camelcaseKeys from 'camelcase-keys';
 import { config } from 'dotenv-safe';
-import postgres from 'postgres';
 // import { Session } from 'inspector';
-import setPostgresDefaultsOnHeroku from './setPostgresDefaultOnHeroku';
+import postgres from 'postgres';
+// import Recipes from '../pages/recipes';
+import setPostgresDefaultsOnHeroku from './setPostgresDefaultOnHeroku.js';
 
 setPostgresDefaultsOnHeroku();
 
@@ -33,18 +34,25 @@ function connectOneTimeToDatabase() {
 // Connect to postgreSQL
 const sql = connectOneTimeToDatabase();
 
+export type Recipe = {
+  id: number;
+  name: string;
+  ingredients: string;
+  text: string;
+};
+
 export async function getRecipes() {
-  const recipes = await sql`
+  const recipes = await sql<Recipe[]>`
 SELECT * FROM recipes;
 `;
-  return recipes;
+  return recipes.map((recipe) => camelcaseKeys(recipe));
 }
 
 export async function getRecipeById(id: number) {
-  const [recipe] = await sql`
+  const [recipe] = await sql<[Recipe | undefined]>`
   SELECT * FROM recipes WHERE id = ${id};
   `;
-  return recipe;
+  return recipe && camelcaseKeys(recipe);
 }
 
 // console.log('recipes', recipes);
