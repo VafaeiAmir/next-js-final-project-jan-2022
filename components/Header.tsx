@@ -62,10 +62,12 @@ export default function Header(props: Props) {
         <a data-test-id="header-about-link">About</a>
       </Link>
       <Link href="/users/protected-user">
-        <a data-test-id="header-management-link">Protected-User</a>
+        <a data-test-id="header-management-link">
+          {props.userObject && <a>{props.userObject.username}</a>}
+        </a>
       </Link>
-      {props.userObject && <div>{props.userObject.username}</div>}
-
+      {/* {props.userObject && <div>{props.userObject.username}</div>}
+      <a></a> */}
       {props.userObject ? (
         <Anchor href="/logout">Logout</Anchor>
       ) : (

@@ -168,16 +168,29 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // 2. check if the token its valid and redirect
     const session = await getValidSessionByToken(token);
 
-    if (session) {
+    if (!session) {
       console.log(session);
       return {
         redirect: {
-          destination: '/',
+          destination: '/login?returnTo=/recipes/index',
           permanent: false,
         },
       };
     }
   }
+  // const sessionToken = context.req.cookies.sessionToken;
+
+  // const session = await getValidSessionByToken(sessionToken);
+
+  // if (!session) {
+
+  //   return {
+  //     redirect: {
+  //       destination: '/login?returnTo=/itempage',
+  //       permanent: false,
+  //     },
+  //   };
+  // }
 
   // 3. Otherwise, generate CSRF token and render the page
   return {

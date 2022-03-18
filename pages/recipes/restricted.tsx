@@ -9,7 +9,7 @@ import {
   Recipe,
 } from '../../util/database';
 
-const animalStyles = css`
+const recipeStyles = css`
   border-radius: 5px;
   border: 1px solid #ccc;
   padding: 15px;
@@ -47,10 +47,10 @@ export default function RecipesRestricted(props: Props) {
       <h1>Recipes</h1>
       {props.recipes.map((recipe) => {
         return (
-          <div key={`recipe-${recipe.id}`} css={animalStyles}>
+          <div key={`recipe-${recipe.id}`} css={recipeStyles}>
             <Link href={`/recipe-management-naive-dont-copy/read/${recipe.id}`}>
               <a>
-                {recipe.name} is a {recipe.text} with a {recipe.ingredients}
+                {recipe.name} {recipe.text} {recipe.ingredients}
               </a>
             </Link>{' '}
           </div>

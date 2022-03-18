@@ -10,8 +10,8 @@ import styles from './recipes.module.css';
 
 type Props = {
   recipes: Recipe[];
-  likedRecipes: string;
-  id: number;
+  likedRecipes: string[];
+  userObject: string;
 };
 
 export default function Recipes(props: Props) {
@@ -22,7 +22,7 @@ export default function Recipes(props: Props) {
     const cookieValue = getParsedCookie('likedRecipes') || [];
 
     // 2. update the cooke
-    const existIdOnArray = cookieValue.some((cookieObject: number) => {
+    const existIdOnArray = cookieValue.some((cookieObject: string) => {
       return cookieObject.id === id;
     });
 
@@ -30,7 +30,7 @@ export default function Recipes(props: Props) {
     if (existIdOnArray) {
       //  CASE = when the id is in the array => delete item
       //  cookieValue  [{id:3},{id:5} ]
-      newCookie = cookieValue.filter((cookieObject: number) => {
+      newCookie = cookieValue.filter((cookieObject: string) => {
         return cookieObject.id !== id;
       });
     } else {
@@ -43,6 +43,7 @@ export default function Recipes(props: Props) {
     setLikedArray(newCookie);
     setParsedCookie('likedRecipes', newCookie);
   }
+
   return (
     <Layout userObject={props.userObject}>
       <Head>
@@ -79,7 +80,7 @@ export default function Recipes(props: Props) {
       </div>
       <div className={styles.mainName}>
         {props.recipes.map((recipe) => {
-          const recipeIsLiked = likedArray.some((likedObject: number) => {
+          const recipeIsLiked = likedArray.some((likedObject: string) => {
             return likedObject.id === recipe.id;
           });
           return (

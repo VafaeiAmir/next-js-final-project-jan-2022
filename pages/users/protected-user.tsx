@@ -9,9 +9,9 @@ type Props = {
 export default function ProtectedUser(props: Props) {
   return (
     <Layout userObject={props.userObject}>
-      <h1>you only will see this if are logged in</h1>
+      <h1>you only will see this if you are logged in</h1>
       <div> user id is {props.user.id}</div>
-      <div> user name is {props.user.username}</div>
+      <div> Welcom {props.user.username}</div>
     </Layout>
   );
 }

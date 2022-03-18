@@ -230,3 +230,41 @@ export async function deleteExpiredSessions() {
 
   return sessions.map((session) => camelcaseKeys(session));
 }
+export type Comment = {
+  id: number;
+  recipeId: number;
+  userId: number;
+};
+
+export async function createComment(
+  comment: string,
+  userId: number,
+  recipeId: number,
+) {
+  const [commentId] = await sql<[Comment]>`
+    INSERT INTO comments
+      (comment, user_id, recipe_id)
+    VALUES
+      (${comment}, ${userId}, ${recipeId} )
+    RETURNING
+     id,
+     comment,
+     user_id,
+     recipe_id
+  `;
+  return camelcaseKeys(commentId);
+}
+
+export async function getCommentByRecipeId(id: number) {
+  const comments = await sql<[Comment]>`
+  SELECT
+   comment
+  FROM
+    comments
+  WHERE
+    recipe_id = ${id}
+`;
+  return comments.map((comment) => {
+    return camelcaseKeys(comment);
+  });
+}
