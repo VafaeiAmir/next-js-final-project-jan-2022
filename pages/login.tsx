@@ -116,7 +116,7 @@ export default function Login(props: Props) {
               // Login worked, redirect to the homepage using the Next.js router
               // setErrors([]); // clear the errors - maybe not necessary with redirect
               props.refreshUserProfile();
-              await router.push(`/`);
+              await router.push(`/recipes`);
             }}
           >
             <label css={lableStyle}>

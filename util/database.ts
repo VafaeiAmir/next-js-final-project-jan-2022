@@ -258,13 +258,14 @@ export async function createComment(
 export async function getCommentByRecipeId(id: number) {
   const comments = await sql<[Comment]>`
   SELECT
-   comment
+   *
   FROM
     comments
   WHERE
     recipe_id = ${id}
 `;
-  return comments.map((comment) => {
-    return camelcaseKeys(comment);
-  });
+  return comments;
+  // return comments.map((comment) => {
+  //   return camelcaseKeys(comment);
+  // });
 }

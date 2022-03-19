@@ -32,17 +32,29 @@ type Props = {
 
 export default function SingleRecipe(props: Props) {
   const [userComment, setUserComment] = useState('');
+  const [initialComment, setInitialComment] = useState(props.recipeComment);
+  console.log('userComment', userComment);
+  console.log('initialComment', initialComment);
   // const [commentsList, setCommentsList] = useState([]);
   // const [remove, setRemove] = useState(false);
-
+  const deleteComment = async (id) => {
+    const response = await fetch(`/api/comment`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        commentId: id,
+      }),
+    });
+    alert(id);
+  };
   // async function deleteComment(id: number) {
-  //   const response = await fetch(`/api/comment/${id}`, {
-  //     method: 'DELETE',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
+
   //   });
   //   const deletedComment = await response.json();
+  //   console.log(deletedComment);
+  //   setRemove(!remove);
   //   const newCommentList = userComment.filter(
   //     (comment) => deletedComment.id !== comment.id,
   //   );
@@ -58,7 +70,14 @@ export default function SingleRecipe(props: Props) {
   //   }
   //   getAllComments();
   // });
-
+  // const deleteComment = async (commentId) => {
+  //   const response = await fetch(`/api/comment/${commentId}`, {
+  //     method: 'DELETE',
+  //   });
+  //   const data = await response.json();
+  //   console.log(data);
+  //   fetchComments();
+  // };
   return (
     <Layout userObject={props.userObject}>
       <Head>
@@ -85,6 +104,7 @@ export default function SingleRecipe(props: Props) {
         onSubmit={async (event) => {
           console.log(userComment);
           event.preventDefault();
+          setInitialComment([...props.recipeComment, { comment: userComment }]);
           const commentResponse = await fetch('/api/comment', {
             method: 'POST',
             headers: {
@@ -116,11 +136,24 @@ export default function SingleRecipe(props: Props) {
         {props.recipeComment.length === 0 ? (
           <div>Please add a comment! </div>
         ) : (
-          props.recipeComment.map((e) => {
-            return <div key={e.comment}>{e.comment}</div>;
+          initialComment.map((e) => {
+            return (
+              <div key={e.comment}>
+                {e.comment}{' '}
+                <div>
+                  <button onClick={() => deleteComment(e.id)}>Delete</button>
+                </div>
+              </div>
+            );
           })
         )}
       </form>
+
+      {/* <button
+      aria-label="Remove"
+      onClick={() => {
+        deleteComment(e.comment).catch();
+      }}>Delete Comment</button> */}
       {/* <form
         css={dynamicPageStyle}
         onSubmit={async (event) => {
@@ -153,7 +186,11 @@ export default function SingleRecipe(props: Props) {
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<{ recipe?: Recipe }>> {
+): Promise<
+  GetServerSidePropsResult<{
+    recipe?: Recipe;
+  }>
+> {
   const recipeId = context.query.recipeId;
   const token = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(token);
@@ -165,6 +202,7 @@ export async function getServerSideProps(
     return { props: {} };
   }
   const recipeComment = await getCommentByRecipeId(parseInt(recipeId));
+  console.log('recipeComment in server', recipeComment);
 
   const recipe = await getRecipeById(parseInt(recipeId));
   return {
