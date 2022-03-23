@@ -5,7 +5,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 import Layout from '../../components/Layout';
 import { getParsedCookie, setParsedCookie } from '../../util/cookies';
-import { getRecipes, Recipe } from '../../util/database';
+import {
+  getRecipes,
+  getUserByValidSessionToken,
+  Recipe,
+} from '../../util/database';
 import styles from './recipes.module.css';
 
 type Props = {
@@ -110,6 +114,16 @@ export default function Recipes(props: Props) {
 // every code from here will run in Node.js
 // Connect to database
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const token = context.req.cookies.sessionToken;
+  const user = await getUserByValidSessionToken(token);
+  if (!user) {
+    return {
+      redirect: {
+        destination: `/login?returnTo=/recipes`,
+        permanent: false,
+      },
+    };
+  }
   // 1. get the cookies from the browser
   // 2. pass the cookies to the frontend
   const likedRecipesFromCookies = context.req.cookies.likedRecipes || '[]';

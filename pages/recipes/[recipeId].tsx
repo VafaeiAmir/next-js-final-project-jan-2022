@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Layout from '../../components/Layout';
 import {
   getCommentByRecipeId,
@@ -10,8 +10,6 @@ import {
   getUserByValidSessionToken,
   Recipe,
 } from '../../util/database';
-
-// import { CommentResponseBody } from '../api/comment';
 
 const dynamicPageStyle = css`
   display: grid;
@@ -26,18 +24,20 @@ const ingredStyle = css`
 type Props = {
   recipe: Recipe;
   userObject: { username: string };
-  recipeComment: string[];
+  recipeComment: {
+    comment: string;
+    id: number;
+    recipe_id: number;
+    user_id: number;
+  }[];
   userId: number;
 };
 
 export default function SingleRecipe(props: Props) {
-  const [userComment, setUserComment] = useState('');
+  const [userComment, setUserComment] = useState<string>('');
   const [initialComment, setInitialComment] = useState(props.recipeComment);
-  console.log('userComment', userComment);
-  console.log('initialComment', initialComment);
-  // const [commentsList, setCommentsList] = useState([]);
-  // const [remove, setRemove] = useState(false);
-  const deleteComment = async (id) => {
+
+  const deleteComment = async (id: number) => {
     const response = await fetch(`/api/comment`, {
       method: 'DELETE',
       headers: {
@@ -47,37 +47,14 @@ export default function SingleRecipe(props: Props) {
         commentId: id,
       }),
     });
-    alert(id);
+    const newResponse = await response.json();
+    console.log('newResponse', newResponse.deletedComment);
+    const newCommentList = initialComment.filter((comment) => {
+      return newResponse.deletedComment.id !== comment.id;
+    });
+    setInitialComment(newCommentList);
   };
-  // async function deleteComment(id: number) {
 
-  //   });
-  //   const deletedComment = await response.json();
-  //   console.log(deletedComment);
-  //   setRemove(!remove);
-  //   const newCommentList = userComment.filter(
-  //     (comment) => deletedComment.id !== comment.id,
-  //   );
-  //   setUserComment(newCommentList);
-  // }
-
-  // useEffect(() => {
-  //   async function getAllComments() {
-  //     const response = await fetch('/api/comment');
-  // const allComments = await response.json();
-
-  // setCommentsList(allComments);
-  //   }
-  //   getAllComments();
-  // });
-  // const deleteComment = async (commentId) => {
-  //   const response = await fetch(`/api/comment/${commentId}`, {
-  //     method: 'DELETE',
-  //   });
-  //   const data = await response.json();
-  //   console.log(data);
-  //   fetchComments();
-  // };
   return (
     <Layout userObject={props.userObject}>
       <Head>
@@ -102,9 +79,9 @@ export default function SingleRecipe(props: Props) {
       <form
         css={dynamicPageStyle}
         onSubmit={async (event) => {
-          console.log(userComment);
+          // console.log(userComment);
           event.preventDefault();
-          setInitialComment([...props.recipeComment, { comment: userComment }]);
+
           const commentResponse = await fetch('/api/comment', {
             method: 'POST',
             headers: {
@@ -116,11 +93,11 @@ export default function SingleRecipe(props: Props) {
               userId: props.userId,
             }),
           });
-          // const commentResponseBody =
-          //   (await commentResponse.json()) as CommentResponseBody;
-
-          // const createdComment = await Response.json();
+          const newComment = await commentResponse.json();
+          console.log('commentResponse.body', newComment);
           setUserComment('');
+          const newCommentList = [...initialComment, newComment];
+          setInitialComment(newCommentList);
 
           return;
         }}
@@ -132,54 +109,21 @@ export default function SingleRecipe(props: Props) {
           />
         </label>
         <button>Submit</button>
-
-        {props.recipeComment.length === 0 ? (
-          <div>Please add a comment! </div>
-        ) : (
-          initialComment.map((e) => {
-            return (
-              <div key={e.comment}>
-                {e.comment}{' '}
-                <div>
-                  <button onClick={() => deleteComment(e.id)}>Delete</button>
-                </div>
-              </div>
-            );
-          })
-        )}
       </form>
-
-      {/* <button
-      aria-label="Remove"
-      onClick={() => {
-        deleteComment(e.comment).catch();
-      }}>Delete Comment</button> */}
-      {/* <form
-        css={dynamicPageStyle}
-        onSubmit={async (event) => {
-          event.preventDefault();
-          const commentResponse = await fetch('/api/comment', {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              userComment: userComment,
-              recipeId: props.recipe.id,
-              userId: props.userId,
-            }),
-          });
-          // const commentResponseBody =
-          //   (await commentResponse.json()) as CommentResponseBody;
-
-          // const createdComment = await Response.json();
-          setUserComment('');
-
-          return;
-        }}
-      >
-        <button>Delete Comment</button>
-      </form> */}
+      {initialComment.length === 0 ? (
+        <div>Please add a comment! </div>
+      ) : (
+        initialComment.map((e) => {
+          return (
+            <div key={e.comment}>
+              {e.comment}{' '}
+              <div>
+                <button onClick={() => deleteComment(e.id)}>❌</button>
+              </div>
+            </div>
+          );
+        })
+      )}
     </Layout>
   );
 }
@@ -194,16 +138,22 @@ export async function getServerSideProps(
   const recipeId = context.query.recipeId;
   const token = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(token);
-  // console.log(context.query);
-  // console.log('user', user.id);
-  // console.log('CHECKING RECIPE ID: ', context.query.recipeId);
 
+  if (!user) {
+    return {
+      redirect: {
+        destination: `/login?returnTo=/recipes/${recipeId}`,
+        permanent: false,
+      },
+    };
+  }
   if (!recipeId || Array.isArray(recipeId)) {
     return { props: {} };
   }
   const recipeComment = await getCommentByRecipeId(parseInt(recipeId));
-  console.log('recipeComment in server', recipeComment);
 
+  const recipeCommentMap = recipeComment.map((recipe) => recipe.comment);
+  // console.log('recipeComment in server', recipeCommentMap);
   const recipe = await getRecipeById(parseInt(recipeId));
   return {
     props: {

@@ -3,7 +3,7 @@ import { GetServerSidePropsContext } from 'next';
 import { deleteSessionByToken } from '../util/database';
 
 export default function Logout() {
-  return null;
+  return <h1>Logged out</h1>;
 }
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {

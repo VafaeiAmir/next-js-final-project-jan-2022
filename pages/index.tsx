@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -42,6 +43,29 @@ type Props = {
 };
 
 export default function Home(props: Props) {
+  const slideRight = {
+    name: 'Slide Right',
+    variants: {
+      initial: {
+        opacity: 0,
+        left: '-100%',
+        scale: 0.6,
+      },
+      animate: {
+        opacity: 1,
+        left: 0,
+        scale: 1,
+      },
+      exit: {
+        opacity: 0,
+        left: '100%',
+        scale: 0.6,
+      },
+    },
+    transition: {
+      duration: 0.5,
+    },
+  };
   const [userId, setUserId] = useState<number>();
   function changeUserId(id: number) {
     setUserId(id);

@@ -232,8 +232,9 @@ export async function deleteExpiredSessions() {
 }
 export type Comment = {
   id: number;
-  recipeId: number;
+  recipeId?: number;
   userId: number;
+  comment?: string;
 };
 
 export async function createComment(
@@ -265,7 +266,14 @@ export async function getCommentByRecipeId(id: number) {
     recipe_id = ${id}
 `;
   return comments;
-  // return comments.map((comment) => {
-  //   return camelcaseKeys(comment);
-  // });
+}
+export async function deleteCommentById(id: number) {
+  const [deletedComment] = await sql<[Comment]>`
+    DELETE FROM
+      comments
+    WHERE
+     id = ${id}
+    RETURNING *
+  `;
+  return deletedComment && camelcaseKeys(deletedComment);
 }
