@@ -70,40 +70,6 @@ export default function Registration(props: Props) {
   const [errors, setErrors] = useState<Errors>([]);
   const router = useRouter();
 
-  // async function deleteUser() {
-  //   const response = await fetch(`/api/register`, {
-  //     method: 'DELETE',
-  //   });
-  //   const deleteUser = response.json();
-  //   const newUserList = users.filter(
-  //     (User) => deleteUser.userName !== User.userName,
-  //   );
-
-  //   setUserName(newUserList);
-  // }
-
-  // async function createUser() {
-  //   // alert('Hello');
-  //   if (!userName || !password) {
-  //     console.log('I need more data');
-  //     return;
-  //   }
-  //   const response = await fetch(`/api/register`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({
-  //       userName: userName,
-  //       password: password,
-  //     }),
-  //   });
-  //   const createdUser = await response.json();
-  //   console.log(createdUser);
-  //   setUserName('');
-  //   setPassword('');
-  // }
-
   return (
     <Layout userObject={props.userObject}>
       <Head>
@@ -119,9 +85,9 @@ export default function Registration(props: Props) {
             width={1180}
           />
         </div>
-        <div css={logTextStyle}>
-          <h1>Register</h1>
+        <div>
           <form
+            css={logTextStyle}
             onSubmit={async (event) => {
               event.preventDefault();
 
@@ -149,6 +115,7 @@ export default function Registration(props: Props) {
               await router.push('/');
             }}
           >
+            <h1>Register</h1>
             <label css={lableStyle}>
               Username:{' '}
               <input

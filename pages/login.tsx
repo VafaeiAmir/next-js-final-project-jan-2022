@@ -73,9 +73,9 @@ export default function Login(props: Props) {
             height={600}
           />
         </div>
-        <div css={logTextStyle}>
-          <h1>Login</h1>
+        <div>
           <form
+            css={logTextStyle}
             onSubmit={async (event) => {
               event.preventDefault();
               const loginResponse = await fetch('/api/login', {
@@ -119,6 +119,7 @@ export default function Login(props: Props) {
               await router.push(`/recipes`);
             }}
           >
+            <h1>Login</h1>
             <label css={lableStyle}>
               Username:{' '}
               <input
