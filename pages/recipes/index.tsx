@@ -12,10 +12,14 @@ import {
 } from '../../util/database';
 import styles from './recipes.module.css';
 
+type UserObject = {
+  id: number;
+  username: string;
+};
 type Props = {
   recipes: Recipe[];
   likedRecipes: string[];
-  userObject: string;
+  userObject: UserObject;
 };
 
 export default function Recipes(props: Props) {

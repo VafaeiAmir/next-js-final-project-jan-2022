@@ -97,7 +97,7 @@ export default async function loginHandler(
     // 2. Create the session
     const session = await createSession(sessionToken, userWithPasswordHash.id);
 
-    console.log(session);
+    // console.log(session);
 
     // 3. Serialize the cookie
     const serializedCookie = await createSerializedRegisterSessionTokenCookie(

@@ -1,8 +1,10 @@
+import 'react-slideshow-image/dist/styles.css';
 import { css } from '@emotion/react';
-import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
+// import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useState } from 'react';
+import { Slide } from 'react-slideshow-image';
 import Layout from '../components/Layout';
 
 const homeText2Style = css`
@@ -14,12 +16,7 @@ const homeText2Style = css`
   margin-top: 1rem;
   color: #660000;
 `;
-const homeImageStyle = css`
-  display: flex;
-  justify-content: center;
-  margin-bottom: -10px;
-  border-radius: 20px;
-`;
+
 const kochSytle = css`
   font-size: 2rem;
   :hover {
@@ -27,45 +24,24 @@ const kochSytle = css`
     transition: 0.3s;
   }
 `;
-const buttonStyle = css`
-  font-size: 1.5rem;
-  border-color: transparent;
-  border-radius: 20px;
-  padding: 3rem;
-  :hover {
-    background-color: #edf6fd;
-    transition: 0.3s;
-  }
+const slideImageStyle = css`
+  display: flex;
+  justify-content: center;
 `;
+
+const slideImages = [
+  '/home-pics/spoons1.jpg',
+  '/home-pics/1.jpg',
+  '/home-pics/2.jpg',
+  '/home-pics/3.jpg',
+  '/home-pics/4.jpg',
+];
 
 type Props = {
   userObject: { username: string };
 };
 
 export default function Home(props: Props) {
-  const slideRight = {
-    name: 'Slide Right',
-    variants: {
-      initial: {
-        opacity: 0,
-        left: '-100%',
-        scale: 0.6,
-      },
-      animate: {
-        opacity: 1,
-        left: 0,
-        scale: 1,
-      },
-      exit: {
-        opacity: 0,
-        left: '100%',
-        scale: 0.6,
-      },
-    },
-    transition: {
-      duration: 0.5,
-    },
-  };
   const [userId, setUserId] = useState<number>();
   function changeUserId(id: number) {
     setUserId(id);
@@ -83,15 +59,20 @@ export default function Home(props: Props) {
         <meta name="description" content="Home page" />
       </Head>
 
-      <div css={homeImageStyle}>
-        <button css={buttonStyle}>⏪</button>
-        <Image
-          src="/home-pics/spoons1.jpg"
-          alt="tow Spoons with rice"
-          width={880}
-          height={580}
-        />
-        <button css={buttonStyle}>⏩</button>
+      <div className="slide-container">
+        <Slide>
+          {slideImages.map((slideImage, index) => (
+            <div key={index}>
+              <div
+                css={slideImageStyle}
+                style={{ height: '80vh', width: '100%' }}
+              >
+                {' '}
+                <Image src={slideImage} alt="sample" width={880} height={530} />
+              </div>
+            </div>
+          ))}
+        </Slide>
       </div>
 
       <div css={homeText2Style}>

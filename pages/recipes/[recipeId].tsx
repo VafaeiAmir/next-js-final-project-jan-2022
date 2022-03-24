@@ -7,6 +7,7 @@ import Layout from '../../components/Layout';
 import {
   getCommentByRecipeId,
   getRecipeById,
+  getUserById,
   getUserByValidSessionToken,
   Recipe,
 } from '../../util/database';
@@ -14,13 +15,43 @@ import {
 const dynamicPageStyle = css`
   display: grid;
   justify-content: center;
+  text-align: center;
   margin-left: 20px;
   margin-right: 20px;
 `;
 const ingredStyle = css`
-  width: 250px;
+  text-align: center;
+  width: 450px;
 `;
-
+const deleteButtonStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: red;
+  border-radius: 1%;
+  margin-left: 10px;
+  color: white;
+  height: 15px;
+  font-size: 0.5rem;
+  margin-top: auto;
+  :hover {
+    font-size: 0.7rem;
+    transition: font-size 0.2s ease;
+  }
+`;
+const commentedStyle = css`
+  display: flex;
+  justify-content: center;
+  text-align: center;
+`;
+const commentFieldStyle = css`
+  display: flex;
+  justify-content: center;
+`;
+const recipeTextStyle = css`
+  font-size: 1rem;
+`;
+const postButtonStyle = css``;
 type Props = {
   recipe: Recipe;
   userObject: { username: string };
@@ -54,7 +85,7 @@ export default function SingleRecipe(props: Props) {
     });
     setInitialComment(newCommentList);
   };
-
+  console.log('props.userObj', props.userObject);
   return (
     <Layout userObject={props.userObject}>
       <Head>
@@ -73,53 +104,55 @@ export default function SingleRecipe(props: Props) {
           alt="recipe picture"
         />
 
-        <p>{props.recipe.text}</p>
+        <h1 css={recipeTextStyle}>{props.recipe.text}</h1>
         <p css={ingredStyle}>{props.recipe.ingredients}</p>
+
+        <form
+          css={commentFieldStyle}
+          onSubmit={async (event) => {
+            event.preventDefault();
+            const commentResponse = await fetch('/api/comment', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                userComment: userComment,
+                recipeId: props.recipe.id,
+                userId: props.userId,
+              }),
+            });
+            const newComment = await commentResponse.json();
+            console.log('commentResponse.body', newComment);
+            setUserComment('');
+            const newCommentList = [...initialComment, newComment];
+            setInitialComment(newCommentList);
+
+            return;
+          }}
+        >
+          <label>
+            <textarea
+              value={userComment}
+              onChange={(event) => setUserComment(event.currentTarget.value)}
+            />
+          </label>
+          <button css={postButtonStyle}>post</button>
+        </form>
       </div>
-      <form
-        css={dynamicPageStyle}
-        onSubmit={async (event) => {
-          // console.log(userComment);
-          event.preventDefault();
-
-          const commentResponse = await fetch('/api/comment', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              userComment: userComment,
-              recipeId: props.recipe.id,
-              userId: props.userId,
-            }),
-          });
-          const newComment = await commentResponse.json();
-          console.log('commentResponse.body', newComment);
-          setUserComment('');
-          const newCommentList = [...initialComment, newComment];
-          setInitialComment(newCommentList);
-
-          return;
-        }}
-      >
-        <label>
-          <textarea
-            value={userComment}
-            onChange={(event) => setUserComment(event.currentTarget.value)}
-          />
-        </label>
-        <button>Submit</button>
-      </form>
       {initialComment.length === 0 ? (
-        <div>Please add a comment! </div>
+        <div css={commentedStyle}>Please add a comment! </div>
       ) : (
         initialComment.map((e) => {
           return (
-            <div key={e.comment}>
-              {e.comment}{' '}
-              <div>
-                <button onClick={() => deleteComment(e.id)}>❌</button>
-              </div>
+            <div css={commentedStyle} key={e.comment}>
+              {props.userObject.username}: {e.comment}{' '}
+              <button
+                css={deleteButtonStyle}
+                onClick={() => deleteComment(e.id)}
+              >
+                Remove
+              </button>
             </div>
           );
         })
@@ -151,7 +184,7 @@ export async function getServerSideProps(
     return { props: {} };
   }
   const recipeComment = await getCommentByRecipeId(parseInt(recipeId));
-
+  // const userObject = await getUserById(parseInt(username))
   const recipeCommentMap = recipeComment.map((recipe) => recipe.comment);
   // console.log('recipeComment in server', recipeCommentMap);
   const recipe = await getRecipeById(parseInt(recipeId));
