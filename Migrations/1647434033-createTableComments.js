@@ -4,6 +4,7 @@ exports.up = async (sql) => {
 		id integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
 		comment varchar (600) NOT NULL,
 		user_id integer REFERENCES users (id) ON DELETE CASCADE,
+		username varchar(100) REFERENCES users (username) ON DELETE CASCADE,
 		recipe_id integer REFERENCES recipes (id) ON DELETE CASCADE
 	);
 	`;

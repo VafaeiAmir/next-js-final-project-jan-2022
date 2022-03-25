@@ -67,7 +67,7 @@ type Props = {
 export default function SingleRecipe(props: Props) {
   const [userComment, setUserComment] = useState<string>('');
   const [initialComment, setInitialComment] = useState(props.recipeComment);
-
+  console.log('props', props);
   const deleteComment = async (id: number) => {
     const response = await fetch(`/api/comment`, {
       method: 'DELETE',
@@ -85,7 +85,7 @@ export default function SingleRecipe(props: Props) {
     });
     setInitialComment(newCommentList);
   };
-  console.log('props.userObj', props.userObject);
+  // console.log('props.userObj', props.userObject);
   return (
     <Layout userObject={props.userObject}>
       <Head>
@@ -120,10 +120,11 @@ export default function SingleRecipe(props: Props) {
                 userComment: userComment,
                 recipeId: props.recipe.id,
                 userId: props.userId,
+                username: props.userObject.username,
               }),
             });
             const newComment = await commentResponse.json();
-            console.log('commentResponse.body', newComment);
+            // console.log('commentResponse.body', newComment);
             setUserComment('');
             const newCommentList = [...initialComment, newComment];
             setInitialComment(newCommentList);
@@ -146,7 +147,7 @@ export default function SingleRecipe(props: Props) {
         initialComment.map((e) => {
           return (
             <div css={commentedStyle} key={e.comment}>
-              {props.userObject.username}: {e.comment}{' '}
+              {e.username}: {e.comment}{' '}
               <button
                 css={deleteButtonStyle}
                 onClick={() => deleteComment(e.id)}
@@ -184,9 +185,9 @@ export async function getServerSideProps(
     return { props: {} };
   }
   const recipeComment = await getCommentByRecipeId(parseInt(recipeId));
-  // const userObject = await getUserById(parseInt(username))
+
   const recipeCommentMap = recipeComment.map((recipe) => recipe.comment);
-  // console.log('recipeComment in server', recipeCommentMap);
+
   const recipe = await getRecipeById(parseInt(recipeId));
   return {
     props: {

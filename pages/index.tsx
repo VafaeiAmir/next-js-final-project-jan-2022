@@ -28,6 +28,10 @@ const slideImageStyle = css`
   display: flex;
   justify-content: center;
 `;
+const imageInsideStyle = css`
+  border: 2px solid #fff;
+  box-shadow: 10px 10px 5px #ccc;
+`;
 
 const slideImages = [
   '/home-pics/spoons1.jpg',
@@ -68,7 +72,13 @@ export default function Home(props: Props) {
                 style={{ height: '80vh', width: '100%' }}
               >
                 {' '}
-                <Image src={slideImage} alt="sample" width={880} height={530} />
+                <Image
+                  css={imageInsideStyle}
+                  src={slideImage}
+                  alt="sample"
+                  width={880}
+                  height={530}
+                />
               </div>
             </div>
           ))}

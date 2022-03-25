@@ -241,17 +241,19 @@ export async function createComment(
   comment: string,
   userId: number,
   recipeId: number,
+  username: string,
 ) {
   const [commentId] = await sql<[Comment]>`
     INSERT INTO comments
-      (comment, user_id, recipe_id)
+      (comment, user_id, recipe_id, username)
     VALUES
-      (${comment}, ${userId}, ${recipeId} )
+      (${comment}, ${userId}, ${recipeId}, ${username} )
     RETURNING
      id,
      comment,
      user_id,
-     recipe_id
+     recipe_id,
+     username
   `;
   return camelcaseKeys(commentId);
 }

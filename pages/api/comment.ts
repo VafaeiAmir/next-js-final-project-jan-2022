@@ -12,6 +12,7 @@ export default async function commentHandler(
       commentFromRequest.userComment,
       commentFromRequest.userId,
       commentFromRequest.recipeId,
+      commentFromRequest.username,
     );
     // console.log(newComment);
     response.json(newComment);
