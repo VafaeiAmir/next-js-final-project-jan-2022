@@ -8,13 +8,18 @@ import { Slide } from 'react-slideshow-image';
 import Layout from '../components/Layout';
 
 const homeText2Style = css`
+  justify-content: center;
   text-align: center;
+  width: 700px;
   font-size: 1.7rem;
   line-height: 1;
-  margin-left: 140px;
-  margin-right: 140px;
+  margin: auto;
+  /* margin-left: 140px;
+  margin-right: 140px; */
   margin-top: 1rem;
   color: #660000;
+  border: 2px solid #fff;
+  box-shadow: 10px 10px 5px #ccc;
 `;
 
 const kochSytle = css`
@@ -24,13 +29,14 @@ const kochSytle = css`
     transition: 0.3s;
   }
 `;
-const slideImageStyle = css`
+const slideImageFrameStyle = css`
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
-const imageInsideStyle = css`
-  border: 2px solid #fff;
-  box-shadow: 10px 10px 5px #ccc;
+const imageStyle = css`
+  /* border: 2px solid #fff;
+  box-shadow: 10px 10px 5px #ccc; */
 `;
 
 const slideImages = [
@@ -68,16 +74,16 @@ export default function Home(props: Props) {
           {slideImages.map((slideImage, index) => (
             <div key={index}>
               <div
-                css={slideImageStyle}
-                style={{ height: '80vh', width: '100%' }}
+                css={slideImageFrameStyle}
+                style={{ height: '70vh', width: '100%' }}
               >
                 {' '}
                 <Image
-                  css={imageInsideStyle}
+                  css={imageStyle}
                   src={slideImage}
                   alt="sample"
-                  width={880}
-                  height={530}
+                  width={930}
+                  height={580}
                 />
               </div>
             </div>
@@ -86,7 +92,7 @@ export default function Home(props: Props) {
       </div>
 
       <div css={homeText2Style}>
-        Learn to Cook Rice{' '}
+        Learn how to cook rice{' '}
         <a css={kochSytle} href="">
           👨‍🍳
         </a>{' '}

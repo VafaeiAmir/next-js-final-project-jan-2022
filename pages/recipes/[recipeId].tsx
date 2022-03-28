@@ -7,7 +7,6 @@ import Layout from '../../components/Layout';
 import {
   getCommentByRecipeId,
   getRecipeById,
-  getUserById,
   getUserByValidSessionToken,
   Recipe,
 } from '../../util/database';
@@ -15,34 +14,43 @@ import {
 const dynamicPageStyle = css`
   display: grid;
   justify-content: center;
-  text-align: center;
+  align-items: center;
   margin-left: 20px;
   margin-right: 20px;
 `;
 const ingredStyle = css`
-  text-align: center;
   width: 450px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 10px;
 `;
 const deleteButtonStyle = css`
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: red;
-  border-radius: 1%;
+  padding: 6px;
+  border-radius: 2%;
   margin-left: 10px;
   color: white;
   height: 15px;
   font-size: 0.5rem;
   margin-top: auto;
   :hover {
-    font-size: 0.7rem;
+    font-size: 0.9rem;
     transition: font-size 0.2s ease;
   }
 `;
 const commentedStyle = css`
   display: flex;
-  justify-content: center;
-  text-align: center;
+  justify-content: space-between;
+  width: 320px;
+  background-color: aliceblue;
+  border-radius: 10px;
+  border: 2px solid #ccc;
+  padding: 10px;
+  margin: auto;
 `;
 const commentFieldStyle = css`
   display: flex;
@@ -50,6 +58,10 @@ const commentFieldStyle = css`
 `;
 const recipeTextStyle = css`
   font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-bottom: 10px;
 `;
 const postButtonStyle = css``;
 type Props = {
@@ -79,7 +91,7 @@ export default function SingleRecipe(props: Props) {
       }),
     });
     const newResponse = await response.json();
-    console.log('newResponse', newResponse.deletedComment);
+    // console.log('newResponse', newResponse.deletedComment);
     const newCommentList = initialComment.filter((comment) => {
       return newResponse.deletedComment.id !== comment.id;
     });
@@ -152,7 +164,7 @@ export default function SingleRecipe(props: Props) {
                 css={deleteButtonStyle}
                 onClick={() => deleteComment(e.id)}
               >
-                Remove
+                X
               </button>
             </div>
           );
