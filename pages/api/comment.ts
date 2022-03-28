@@ -20,7 +20,7 @@ export default async function commentHandler(
   }
   if (request.method === 'DELETE') {
     console.log('delete', request.body);
-    const commentFromRequest = request.body;
+    // const commentFromRequest = request.body;
     const deletedComment = await deleteCommentById(
       parseInt(request.body.commentId),
 

@@ -41,7 +41,7 @@ function Anchor({
   children,
   ...restProps
 }: AnchorHTMLAttributes<HTMLAnchorElement> & {
-  css: Interpolation<Theme>;
+  css?: Interpolation<Theme>;
 }) {
   return <a {...restProps}>{children}</a>;
 }
