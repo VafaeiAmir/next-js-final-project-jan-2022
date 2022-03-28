@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -10,60 +9,8 @@ import {
   getUserByValidSessionToken,
   Recipe,
 } from '../../util/database';
+import styles from './recipes.module.css';
 
-const dynamicPageStyle = css`
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
-`;
-const ingredStyle = css`
-  width: 450px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin-bottom: 10px;
-`;
-const deleteButtonStyle = css`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: red;
-  padding: 6px;
-  border-radius: 2%;
-  margin-left: 10px;
-  color: white;
-  height: 15px;
-  font-size: 0.5rem;
-  margin-top: auto;
-  :hover {
-    font-size: 0.9rem;
-    transition: font-size 0.2s ease;
-  }
-`;
-const commentedStyle = css`
-  display: flex;
-  justify-content: space-between;
-  width: 320px;
-  background-color: aliceblue;
-  border-radius: 10px;
-  border: 2px solid #ccc;
-  padding: 10px;
-  margin: auto;
-`;
-const commentFieldStyle = css`
-  display: flex;
-  justify-content: center;
-`;
-const recipeTextStyle = css`
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin-bottom: 10px;
-`;
-const postButtonStyle = css``;
 type Props = {
   recipe: Recipe;
   userObject: { username: string };
@@ -107,7 +54,7 @@ export default function SingleRecipe(props: Props) {
           content={`${props.recipe.name} is a persian dish that can be cooked with rice`}
         />
       </Head>
-      <div css={dynamicPageStyle}>
+      <div className={styles.dynamicPage}>
         <h1>{props.recipe.name}</h1>
         <Image
           src={`/home-pics/${props.recipe.id}.jpg`}
@@ -116,11 +63,11 @@ export default function SingleRecipe(props: Props) {
           alt="recipe picture"
         />
 
-        <h1 css={recipeTextStyle}>{props.recipe.text}</h1>
-        <p css={ingredStyle}>{props.recipe.ingredients}</p>
+        <h1 className={styles.recipeText}>{props.recipe.text}</h1>
+        <p className={styles.ingred}>{props.recipe.ingredients}</p>
 
         <form
-          css={commentFieldStyle}
+          className={styles.commentField}
           onSubmit={async (event) => {
             event.preventDefault();
             const commentResponse = await fetch('/api/comment', {
@@ -150,18 +97,18 @@ export default function SingleRecipe(props: Props) {
               onChange={(event) => setUserComment(event.currentTarget.value)}
             />
           </label>
-          <button css={postButtonStyle}>post</button>
+          <button className={styles.postButton}>post</button>
         </form>
       </div>
       {initialComment.length === 0 ? (
-        <div css={commentedStyle}>Please add a comment! </div>
+        <div className={styles.commented}>Please add a comment! </div>
       ) : (
         initialComment.map((e) => {
           return (
-            <div css={commentedStyle} key={e.comment}>
+            <div className={styles.commented} key={e.comment}>
               {e.username}: {e.comment}{' '}
               <button
-                css={deleteButtonStyle}
+                className={styles.deleteButton}
                 onClick={() => deleteComment(e.id)}
               >
                 X

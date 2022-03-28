@@ -1,0 +1,132 @@
+/* ******About-Page Styles ****** */
+.aboutTex {
+  text-align: center;
+  margin: 50px;
+}
+.aboutText2 {
+  text-align: center;
+  margin: 80px;
+}
+
+/* ****** Home-Page Styles ******** */
+
+.homeText2 {
+  justify-content: center;
+  text-align: center;
+  width: 700px;
+  font-size: 1.7rem;
+  line-height: 1;
+  margin: auto;
+  /* margin-left: 140px;
+  margin-right: 140px; */
+  margin-top: 1rem;
+  color: #660000;
+  border: 2px solid #fff;
+  box-shadow: 10px 10px 5px #ccc;
+}
+.koch {
+  font-size: 2rem;
+}
+.koch:hover {
+  font-size: 3rem;
+  transition: 0.3s;
+}
+.slideImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image {
+  /* border: 2px solid #fff;
+  box-shadow: 10px 10px 5px #ccc; */
+}
+
+/* ****** Login-Page Styles ******* */
+
+.logText {
+  display: grid;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 10rem !important;
+}
+.container {
+  position: relative;
+  text-align: center;
+}
+.loginButton {
+  padding: 0.2rem;
+  margin: 0.2rem 5rem;
+  margin-right: 17px;
+  background-color: lightblue;
+  border-radius: 10px;
+}
+.logImage {
+  display: grid;
+  justify-content: space-around;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.lable {
+  justify-content: center;
+  text-align: end;
+  padding: 0.3rem 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+/* ****** Registration-Page Styles ********* */
+
+.container {
+  position: relative;
+  text-align: center;
+}
+.diffRiceImage {
+  display: grid;
+  justify-content: center;
+  /* margin: auto; */
+  /* margin-left: 100px;
+  margin-right: 100px; */
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.threeImage {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(3, calc(((59vw - 4rem) / 2.1)));
+  grid-gap: 1rem;
+  grid-template-rows: auto;
+  margin: 0.5rem 0;
+  padding: 0 7rem 0;
+}
+.lable {
+  justify-content: center;
+  text-align: end;
+  padding: 0.3rem 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+.loginButton {
+  padding: 0.2rem;
+  margin: 0.2rem 5rem;
+  margin-right: 17px;
+  background-color: lightblue;
+  border-radius: 10px;
+}
+.logText {
+  display: grid;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 10rem !important;
+}

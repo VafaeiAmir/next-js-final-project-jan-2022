@@ -6,38 +6,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Slide } from 'react-slideshow-image';
 import Layout from '../components/Layout';
-
-const homeText2Style = css`
-  justify-content: center;
-  text-align: center;
-  width: 700px;
-  font-size: 1.7rem;
-  line-height: 1;
-  margin: auto;
-  /* margin-left: 140px;
-  margin-right: 140px; */
-  margin-top: 1rem;
-  color: #660000;
-  border: 2px solid #fff;
-  box-shadow: 10px 10px 5px #ccc;
-`;
-
-const kochSytle = css`
-  font-size: 2rem;
-  :hover {
-    font-size: 3rem;
-    transition: 0.3s;
-  }
-`;
-const slideImageFrameStyle = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const imageStyle = css`
-  /* border: 2px solid #fff;
-  box-shadow: 10px 10px 5px #ccc; */
-`;
+import styles from './pages.module.css';
 
 const slideImages = [
   '/home-pics/spoons1.jpg',
@@ -74,12 +43,12 @@ export default function Home(props: Props) {
           {slideImages.map((slideImage, index) => (
             <div key={index}>
               <div
-                css={slideImageFrameStyle}
+                className={styles.slideImage}
                 style={{ height: '70vh', width: '100%' }}
               >
                 {' '}
                 <Image
-                  css={imageStyle}
+                  className={styles.image}
                   src={slideImage}
                   alt="sample"
                   width={930}
@@ -91,9 +60,9 @@ export default function Home(props: Props) {
         </Slide>
       </div>
 
-      <div css={homeText2Style}>
+      <div className={styles.homeText2}>
         Learn how to cook rice{' '}
-        <a css={kochSytle} href="">
+        <a className={styles.koch} href="">
           👨‍🍳
         </a>{' '}
         Maz shows you the magic of how to prepare the rice in different ways

@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -8,55 +7,8 @@ import Layout from '../components/Layout';
 import { createCsrfToken } from '../util/auth';
 import { getValidSessionByToken } from '../util/database';
 import { RegisterResponseBody } from './api/register';
+import styles from './pages.module.css';
 
-const containerStyle = css`
-  position: relative;
-  text-align: center;
-`;
-const diffRiceImageStyle = css`
-  display: grid;
-  justify-content: center;
-  /* margin: auto; */
-  /* margin-left: 100px;
-  margin-right: 100px; */
-  padding-left: 10px;
-  padding-right: 10px;
-`;
-const threeImagestyle = css`
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(3, calc(((59vw - 4rem) / 2.1)));
-  grid-gap: 1rem;
-  grid-template-rows: auto;
-  margin: 0.5rem 0;
-  padding: 0 7rem 0;
-`;
-const lableStyle = css`
-  justify-content: center;
-  text-align: end;
-  padding: 0.3rem 0;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  padding: 5px;
-  margin-bottom: 5px;
-`;
-const loginButtonStyle = css`
-  padding: 0.2rem;
-  margin: 0.2rem 5rem;
-  margin-right: 17px;
-  background-color: lightblue;
-  border-radius: 10px;
-`;
-const logTextStyle = css`
-  display: grid;
-  justify-content: center;
-  text-align: center;
-  position: absolute;
-  top: 1%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding-top: 10rem !important;
-`;
 type Errors = { message: string }[];
 type Props = {
   refreshUserProfile: () => void;
@@ -76,8 +28,8 @@ export default function Registration(props: Props) {
         <title>Registration</title>
         <meta name="description" content="Register on this website" />
       </Head>
-      <div css={containerStyle}>
-        <div css={diffRiceImageStyle}>
+      <div className={styles.container}>
+        <div className={styles.diffRiceImage}>
           <Image
             src="/home-pics/threeRices.jpg"
             alt="three different types of rice"
@@ -87,7 +39,7 @@ export default function Registration(props: Props) {
         </div>
         <div>
           <form
-            css={logTextStyle}
+            className={styles.logText}
             onSubmit={async (event) => {
               event.preventDefault();
 
@@ -116,14 +68,14 @@ export default function Registration(props: Props) {
             }}
           >
             <h1>Register</h1>
-            <label css={lableStyle}>
+            <label className={styles.lable}>
               Username:{' '}
               <input
                 value={userName}
                 onChange={(event) => setUserName(event.currentTarget.value)}
               />
             </label>
-            <label css={lableStyle}>
+            <label className={styles.lable}>
               Password:{' '}
               <input
                 type="password"
@@ -131,7 +83,7 @@ export default function Registration(props: Props) {
                 onChange={(event) => setPassword(event.currentTarget.value)}
               />
             </label>
-            <button css={loginButtonStyle}>Register</button>
+            <button className={styles.loginButton}>Register</button>
           </form>
           <div>
             {errors.map((error) => {
@@ -140,7 +92,7 @@ export default function Registration(props: Props) {
           </div>
         </div>
       </div>
-      <div css={threeImagestyle}>
+      <div className={styles.threeImage}>
         <Image
           src="/home-pics/4.jpg"
           alt="tow hands of rice"

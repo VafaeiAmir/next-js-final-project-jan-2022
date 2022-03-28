@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -8,43 +7,8 @@ import Layout from '../components/Layout';
 import { createCsrfToken } from '../util/auth';
 import { getValidSessionByToken } from '../util/database';
 import { LoginResponseBody } from './api/login';
+import styles from './pages.module.css';
 
-const logTextStyle = css`
-  display: grid;
-  justify-content: center;
-  text-align: center;
-  position: absolute;
-  top: 1%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding-top: 10rem !important;
-`;
-const containerStyle = css`
-  position: relative;
-  text-align: center;
-`;
-const loginButtonStyle = css`
-  padding: 0.2rem;
-  margin: 0.2rem 5rem;
-  margin-right: 17px;
-  background-color: lightblue;
-  border-radius: 10px;
-`;
-const logImageStyle = css`
-  display: grid;
-  justify-content: space-around;
-  padding-left: 10px;
-  padding-right: 10px;
-`;
-const lableStyle = css`
-  justify-content: center;
-  text-align: end;
-  padding: 0.3rem 0;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  padding: 5px;
-  margin-bottom: 5px;
-`;
 type Errors = { message: string }[];
 type Props = {
   refreshUserProfile: () => void;
@@ -64,8 +28,8 @@ export default function Login(props: Props) {
         <meta name="description" content="Login on this website" />
       </Head>
 
-      <div css={containerStyle}>
-        <div css={logImageStyle}>
+      <div className={styles.container}>
+        <div className={styles.logImage}>
           <Image
             src="/home-pics/adviye.jpg"
             alt="4 Spoons with spices"
@@ -75,7 +39,7 @@ export default function Login(props: Props) {
         </div>
         <div>
           <form
-            css={logTextStyle}
+            className={styles.logText}
             onSubmit={async (event) => {
               event.preventDefault();
               const loginResponse = await fetch('/api/login', {
@@ -120,14 +84,14 @@ export default function Login(props: Props) {
             }}
           >
             <h1>Login</h1>
-            <label css={lableStyle}>
+            <label className={styles.lable}>
               Username:{' '}
               <input
                 value={username}
                 onChange={(event) => setUsername(event.currentTarget.value)}
               />
             </label>
-            <label css={lableStyle}>
+            <label className={styles.lable}>
               Password:{' '}
               <input
                 type="password"
@@ -135,7 +99,7 @@ export default function Login(props: Props) {
                 onChange={(event) => setPassword(event.currentTarget.value)}
               />
             </label>
-            <button css={loginButtonStyle}>Login</button>
+            <button className={styles.loginButton}>Login</button>
           </form>
           <div>
             {errors.map((error) => {
