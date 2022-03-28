@@ -16,6 +16,7 @@ type Props = {
   userObject: { username: string };
   recipeComment: {
     comment: string;
+    username: string;
     id: number;
     recipe_id: number;
     user_id: number;
@@ -26,6 +27,7 @@ type Props = {
 export default function SingleRecipe(props: Props) {
   const [userComment, setUserComment] = useState<string>('');
   const [initialComment, setInitialComment] = useState(props.recipeComment);
+
   console.log('props', props);
   const deleteComment = async (id: number) => {
     const response = await fetch(`/api/comment`, {
@@ -123,11 +125,7 @@ export default function SingleRecipe(props: Props) {
 
 export async function getServerSideProps(
   context: GetServerSidePropsContext,
-): Promise<
-  GetServerSidePropsResult<{
-    recipe?: Recipe;
-  }>
-> {
+): Promise<GetServerSidePropsResult<{}>> {
   const recipeId = context.query.recipeId;
   const token = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(token);
@@ -145,14 +143,14 @@ export async function getServerSideProps(
   }
   const recipeComment = await getCommentByRecipeId(parseInt(recipeId));
 
-  const recipeCommentMap = recipeComment.map((recipe) => recipe.comment);
+  // const recipeCommentMap = recipeComment.map((recipe) => recipe.comment);
 
   const recipe = await getRecipeById(parseInt(recipeId));
   return {
     props: {
       recipe: recipe,
       recipeComment: recipeComment,
-      userId: user?.id,
+      userId: user.id,
       // recipeId: recipeId,
     },
   };

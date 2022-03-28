@@ -2,8 +2,11 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "UpLeveled Node + React TSConfig",
   "compilerOptions": {
-    "typeRoots": ["./types", "./node_modules/@types"],
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "module": "esnext",
     "target": "es2015",
     "moduleResolution": "node",
@@ -15,7 +18,6 @@
     "downlevelIteration": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "preserve",
-    "jsxImportSource": "@emotion/react",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
@@ -23,7 +25,7 @@
     "incremental": true
   },
   "include": [
-    ".eslintrc.cjs",
+    "**/.eslintrc.cjs",
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
@@ -32,5 +34,8 @@
     "**/*.cjs",
     "**/*.mjs"
   ],
-  "exclude": ["node_modules", "build"]
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
 }

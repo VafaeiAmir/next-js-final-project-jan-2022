@@ -231,7 +231,7 @@ export async function getCommentByRecipeId(id: number) {
   return comments;
 }
 export async function deleteCommentById(id: number) {
-  const [deletedComment] = await sql<[Comment]>`
+  const [deletedComment] = await sql<[Comment | undefined]>`
     DELETE FROM
       comments
     WHERE

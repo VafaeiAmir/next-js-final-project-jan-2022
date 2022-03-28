@@ -1,5 +1,4 @@
 import 'react-slideshow-image/dist/styles.css';
-import { css } from '@emotion/react';
 // import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -40,8 +39,8 @@ export default function Home(props: Props) {
 
       <div className="slide-container">
         <Slide>
-          {slideImages.map((slideImage, index) => (
-            <div key={index}>
+          {slideImages.map((slideImage) => (
+            <div key="">
               <div
                 className={styles.slideImage}
                 style={{ height: '70vh', width: '100%' }}
@@ -61,11 +60,8 @@ export default function Home(props: Props) {
       </div>
 
       <div className={styles.homeText2}>
-        Learn how to cook rice{' '}
-        <a className={styles.koch} href="">
-          👨‍🍳
-        </a>{' '}
-        Maz shows you the magic of how to prepare the rice in different ways
+        Learn how to cook rice <a className={styles.koch}>👨‍🍳</a> Maz shows you
+        the magic of how to prepare the rice in different ways
       </div>
     </Layout>
   );

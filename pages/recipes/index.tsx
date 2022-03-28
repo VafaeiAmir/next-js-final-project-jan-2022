@@ -13,10 +13,10 @@ import {
 import styles from './recipes.module.css';
 
 type UserObject = {
-  id: number;
   username: string;
 };
 type Props = {
+  id: number;
   recipes: Recipe[];
   likedRecipes: string[];
   userObject: UserObject;
