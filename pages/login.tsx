@@ -134,7 +134,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     const session = await getValidSessionByToken(token);
 
     if (!session) {
-      console.log(session);
+      // console.log(session);
       return {
         redirect: {
           destination: '/login?returnTo=/recipes/index',
