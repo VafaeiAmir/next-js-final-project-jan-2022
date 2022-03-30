@@ -3,7 +3,6 @@ import Head from 'next/head';
 
 import Layout from '../../components/Layout';
 import {
-  getCommentedRecipesByUserId,
   getCommentsByUserId,
   getUserByValidSessionToken,
   Recipe,
@@ -56,7 +55,7 @@ export async function getServerSideProps(
   // const recipesInProfile = await getCommentedRecipesByUserId();
 
   const commentsInProfile = await getCommentsByUserId(user.id);
-  console.log('commentsInProfile', commentsInProfile);
+  // console.log('commentsInProfile', commentsInProfile);
 
   // 2. If there is a user, return that and render page
   if (user) {
