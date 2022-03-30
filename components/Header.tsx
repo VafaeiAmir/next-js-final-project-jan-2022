@@ -51,13 +51,13 @@ export default function Header(props: Props) {
     <header css={header}>
       <div>
         <a css={logoText}>NICE RICE</a>
-        {/* <a></a> */}
+        <a>.</a>
         <Image src="/logo.jpg" alt="spoon logo" width={85} height={30} />
       </div>
       <Link href="/">
         <a>Home</a>
       </Link>
-      <Link href="/recipes">
+      <Link href="/recipes/">
         <a>Recipes</a>
       </Link>
       <Link href="/about">

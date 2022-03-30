@@ -13,7 +13,7 @@ import styles from './recipes.module.css';
 
 type Props = {
   recipe: Recipe;
-  userObject: { username: string };
+  userObject: { username: string; userId: number };
   recipeComment: {
     comment: string;
     username: string;
@@ -26,7 +26,7 @@ type Props = {
 
 export default function SingleRecipe(props: Props) {
   const [userComment, setUserComment] = useState<string>('');
-  const [initialComment, setInitialComment] = useState(props.recipeComment);
+  const [initialComments, setInitialComments] = useState(props.recipeComment);
 
   console.log('props', props);
   const deleteComment = async (id: number) => {
@@ -39,14 +39,16 @@ export default function SingleRecipe(props: Props) {
         commentId: id,
       }),
     });
+
     const newResponse = await response.json();
     // console.log('newResponse', newResponse.deletedComment);
-    const newCommentList = initialComment.filter((comment) => {
+    const newCommentList = initialComments.filter((comment) => {
       return newResponse.deletedComment.id !== comment.id;
     });
-    setInitialComment(newCommentList);
+
+    setInitialComments(newCommentList);
   };
-  // console.log('props.userObj', props.userObject);
+
   return (
     <Layout userObject={props.userObject}>
       <Head>
@@ -87,8 +89,8 @@ export default function SingleRecipe(props: Props) {
             const newComment = await commentResponse.json();
             // console.log('commentResponse.body', newComment);
             setUserComment('');
-            const newCommentList = [...initialComment, newComment];
-            setInitialComment(newCommentList);
+            const newCommentList = [...initialComments, newComment];
+            setInitialComments(newCommentList);
 
             return;
           }}
@@ -102,19 +104,21 @@ export default function SingleRecipe(props: Props) {
           <button className={styles.postButton}>post</button>
         </form>
       </div>
-      {initialComment.length === 0 ? (
+      {initialComments.length === 0 ? (
         <div className={styles.commented}>Please add a comment! </div>
       ) : (
-        initialComment.map((e) => {
+        initialComments.map((e) => {
           return (
             <div className={styles.commented} key={e.comment}>
               {e.username}: {e.comment}{' '}
-              <button
-                className={styles.deleteButton}
-                onClick={() => deleteComment(e.id)}
-              >
-                X
-              </button>
+              {props.userObject && props.userObject.username === e.username && (
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => deleteComment(e.id)}
+                >
+                  X
+                </button>
+              )}
             </div>
           );
         })

@@ -67,6 +67,11 @@
 .likeButton {
   font-size: 5%;
 }
+.errorText {
+  display: flex;
+  justify-content: center;
+  color: #660000;
+}
 
 /* ****** Dynamic-page Style ******* */
 

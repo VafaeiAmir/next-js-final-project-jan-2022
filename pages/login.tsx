@@ -56,7 +56,7 @@ export default function Login(props: Props) {
 
               const loginResponseBody =
                 (await loginResponse.json()) as LoginResponseBody;
-
+              // console.log(loginResponseBody);
               if ('errors' in loginResponseBody) {
                 setErrors(loginResponseBody.errors);
                 return;
@@ -125,7 +125,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
-
+  // const userObject = await
   // 1. check if there is a token and is valid from the cookie
   const token = context.req.cookies.sessionToken;
 

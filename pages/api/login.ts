@@ -111,6 +111,7 @@ export default async function loginHandler(
       .json({
         user: {
           id: userWithPasswordHash.id,
+          username: userWithPasswordHash.username,
         },
       });
     return;

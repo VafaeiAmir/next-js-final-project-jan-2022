@@ -19,7 +19,7 @@ export default async function commentHandler(
     return;
   }
   if (request.method === 'DELETE') {
-    console.log('delete', request.body);
+    // console.log('delete', request.body);
     // const commentFromRequest = request.body;
     const deletedComment = await deleteCommentById(
       parseInt(request.body.commentId),
@@ -29,7 +29,7 @@ export default async function commentHandler(
       // commentFromRequest.recipeId,
     );
     response.status(201).json({ deletedComment: deletedComment });
-    console.log('newCommentList', deletedComment);
+    // console.log('newCommentList', deletedComment);
     return;
   }
 }

@@ -58,7 +58,9 @@ export type User = {
   id: number;
   username: string;
 };
-
+export type UserObject = {
+  userObject?: User;
+};
 export type UserWithPasswordHash = User & {
   passwordHash: string;
 };
@@ -219,8 +221,20 @@ export async function createComment(
   return camelcaseKeys(commentId);
 }
 
+export async function getCommentsByUserId(id: number) {
+  const comments = await sql<[Comment[]]>`
+  SELECT
+   *
+  FROM
+    comments
+  WHERE
+    user_id = ${id}
+`;
+  return comments.map((comment) => camelcaseKeys(comment));
+}
+
 export async function getCommentByRecipeId(id: number) {
-  const comments = await sql<[Comment]>`
+  const comment = await sql<[Comment]>`
   SELECT
    *
   FROM
@@ -228,8 +242,24 @@ export async function getCommentByRecipeId(id: number) {
   WHERE
     recipe_id = ${id}
 `;
-  return comments;
+  return comment;
 }
+
+// export async function getCommentedRecipesByUserId(id: number) {
+//   const comment = await sql<[Comment]>`
+//   SELECT
+//    *
+//   FROM
+//     comments,
+//     recipes
+//   WHERE
+//     comments.recipe_id = ${id} AND
+//     recipes.id = comments.recipe_id
+
+// `;
+//   return comment.map((comment) => camelcaseKeys(comment));
+// }
+
 export async function deleteCommentById(id: number) {
   const [deletedComment] = await sql<[Comment | undefined]>`
     DELETE FROM

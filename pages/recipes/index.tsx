@@ -1,3 +1,4 @@
+// import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -7,11 +8,18 @@ import Layout from '../../components/Layout';
 import { getParsedCookie, setParsedCookie } from '../../util/cookies';
 import {
   getRecipes,
+  getValidSessionByToken,
   getUserByValidSessionToken,
   Recipe,
 } from '../../util/database';
 import styles from './recipes.module.css';
 
+// const recipeStyles = css`
+//   border-radius: 5px;
+//   border: 1px solid #ccc;
+//   padding: 15px;
+//   margin-bottom: 20px;
+// `;
 type UserObject = {
   username: string;
 };
@@ -19,9 +27,11 @@ type Props = {
   recipes: Recipe[];
   likedRecipes: string[];
   userObject: UserObject;
+  error: string;
+  cookieObject: { id: number; recipeId: number };
 };
 
-export default function Recipes(props: Props) {
+export default function RecipesRestricted(props: Props) {
   const [likedArray, setLikedArray] = useState(props.likedRecipes);
 
   function toggleRecipeLike(id: number) {
@@ -49,6 +59,20 @@ export default function Recipes(props: Props) {
     // 3. set the new value of the cookie
     setLikedArray(newCookie);
     setParsedCookie('likedRecipes', newCookie);
+  }
+
+  if ('error' in props) {
+    return (
+      <Layout>
+        <Head>
+          <title>Recipes Error</title>
+          <meta name="description" content="An error about an recipe " />
+        </Head>
+        <h1 className={styles.errorText}>
+          You need to login to see the recipes!
+        </h1>
+      </Layout>
+    );
   }
 
   return (
@@ -114,9 +138,18 @@ export default function Recipes(props: Props) {
     </Layout>
   );
 }
-// every code from here will run in Node.js
-// Connect to database
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const sessionToken = context.req.cookies.sessionToken;
+  const session = await getValidSessionByToken(sessionToken);
+
+  if (!session) {
+    return {
+      props: {
+        error: 'You need to Log in to see recipes ',
+      },
+    };
+  }
   const token = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(token);
   if (!user) {
@@ -127,15 +160,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   }
-  // 1. get the cookies from the browser
-  // 2. pass the cookies to the frontend
   const likedRecipesFromCookies = context.req.cookies.likedRecipes || '[]';
-  // if there is no likedAnimals cookie on the browser we store to an [] otherwise we get the cooke value and parse it
   const likedRecipes = JSON.parse(likedRecipesFromCookies);
-
   const recipes = await getRecipes();
-
   return {
-    props: { recipes: recipes, likedRecipes: likedRecipes },
+    props: {
+      recipes: recipes,
+      likedRecipes: likedRecipes,
+    },
   };
 }
