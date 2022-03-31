@@ -6,7 +6,6 @@ import { createSerializedRegisterSessionTokenCookie } from '../../util/cookies';
 import {
   createSession,
   getUserWithPasswordHashByUsername,
-  User,
 } from '../../util/database';
 
 type LoginRequestBody = {

@@ -2,7 +2,7 @@ import 'react-slideshow-image/dist/styles.css';
 // import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useState } from 'react';
+
 import { Slide } from 'react-slideshow-image';
 import Layout from '../components/Layout';
 import styles from './pages.module.css';

@@ -111,7 +111,7 @@ export default function SingleRecipe(props: Props) {
           return (
             <div className={styles.commented} key={e.comment}>
               {e.username}: {e.comment}{' '}
-              {props.userObject && props.userObject.username === e.username && (
+              {props.userObject.username === e.username && (
                 <button
                   className={styles.deleteButton}
                   onClick={() => deleteComment(e.id)}
@@ -127,9 +127,7 @@ export default function SingleRecipe(props: Props) {
   );
 }
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<{}>> {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const recipeId = context.query.recipeId;
   const token = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(token);

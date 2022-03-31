@@ -15,17 +15,17 @@ type Props = {
     userId: number;
     comment: string | undefined;
   }[];
-  recipe: Recipe;
+  // recipe: Recipe;
   // comment: string;
   userObject: { username: string };
   user: { id: number; username: string };
-  recipeComment: {
-    comment: string;
-    username: string;
-    id: number;
-    recipe_id: number;
-    user_id: number;
-  }[];
+  // recipeComment: {
+  //   comment: string;
+  //   username: string;
+  //   id: number;
+  //   recipe_id: number;
+  //   user_id: number;
+  // }[];
 };
 export default function ProtectedUser(props: Props) {
   return (
@@ -52,7 +52,8 @@ export async function getServerSideProps(
   context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<{}>> {
   // 1. Get a user from the cookie sessionToken
-  const recipeId = context.query.recipeId;
+
+  // const recipeId = context.query.recipeId;
   const token = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(token);
 
