@@ -2,7 +2,7 @@ import camelcaseKeys from 'camelcase-keys';
 import { config } from 'dotenv-safe';
 // import { Session } from 'inspector';
 import postgres from 'postgres';
-import setPostgresDefaultsOnHeroku from './setPostgresDefaultOnHeroku.js';
+import setPostgresDefaultsOnHeroku from './setPostgresDefaultsOnHeroku.js';
 
 setPostgresDefaultsOnHeroku();
 
