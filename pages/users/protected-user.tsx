@@ -4,7 +4,6 @@ import Layout from '../../components/Layout';
 import {
   getCommentsByUserId,
   getUserByValidSessionToken,
-  Recipe,
 } from '../../util/database';
 import styles from './userProfile.module.css';
 
@@ -41,16 +40,18 @@ export default function ProtectedUser(props: Props) {
         })} */}
 
         {props.commentsInProfile.map((comment) => {
-          return <div>Commented: {comment.comment}</div>;
+          return (
+            <div key={`comment-${comment.comment}`}>
+              Commented: {comment.comment}
+            </div>
+          );
         })}
       </div>
     </Layout>
   );
 }
 
-export async function getServerSideProps(
-  context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<{}>> {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   // 1. Get a user from the cookie sessionToken
 
   // const recipeId = context.query.recipeId;
