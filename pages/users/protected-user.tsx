@@ -14,9 +14,9 @@ type Props = {
     recipeId: number | undefined;
     userId: number;
     comment: string | undefined;
-  };
+  }[];
   recipe: Recipe;
-  comment: string;
+  // comment: string;
   userObject: { username: string };
   user: { id: number; username: string };
   recipeComment: {
@@ -26,7 +26,6 @@ type Props = {
     recipe_id: number;
     user_id: number;
   }[];
-  userId: number;
 };
 export default function ProtectedUser(props: Props) {
   return (
@@ -37,6 +36,10 @@ export default function ProtectedUser(props: Props) {
       <div className={styles.dynamicPage}>
         <h1>Welcom to your own profile {props.user.username}</h1>
         <h2> This is your personal user id number: {props.user.id}</h2>
+        {/* {props.recipesInProfile.map((recipe) => {
+          return <div>Recipe: {recipe.recipe}</div>;
+        })} */}
+
         {props.commentsInProfile.map((comment) => {
           return <div>Commented: {comment.comment}</div>;
         })}
@@ -53,26 +56,28 @@ export async function getServerSideProps(
   const token = context.req.cookies.sessionToken;
   const user = await getUserByValidSessionToken(token);
 
-  // const recipesInProfile = await getCommentedRecipesByUserId();
-
-  const commentsInProfile = await getCommentsByUserId(user.id);
-  // console.log('commentsInProfile', commentsInProfile);
-
-  // 2. If there is a user, return that and render page
-  if (user) {
+  if (!user) {
     return {
-      props: {
-        user: user,
-        commentsInProfile: commentsInProfile,
+      redirect: {
+        destination: `/login?returnTo=/users/protected-user`,
+        permanent: false,
       },
     };
   }
+  // const recipesInProfile = await getCommentedRecipesByUserId(recipes.id);
 
-  // 3. Otherwise redirect to login
+  const commentsInProfile = await getCommentsByUserId(user.id);
+  console.log('commentsInProfile', commentsInProfile);
+
+  // 2. If there is a user, return that and render page
+
   return {
-    redirect: {
-      destination: `/login?returnTo=/users/protected-user`,
-      permanent: false,
+    props: {
+      user: user,
+      commentsInProfile: commentsInProfile,
+      // recipesInProfile: recipesInProfile,
     },
   };
+
+  // 3. Otherwise redirect to login
 }

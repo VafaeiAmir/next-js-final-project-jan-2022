@@ -10,6 +10,7 @@ import {
 } from '../../util/database';
 
 type LoginRequestBody = {
+  id: number;
   username: string;
   password: string;
   csrfToken: string;
@@ -21,7 +22,7 @@ type LoginNextApiRequest = Omit<NextApiRequest, 'body'> & {
 
 export type LoginResponseBody =
   | { errors: { message: string }[] }
-  | { user: Pick<User, 'id'> };
+  | { user: { id: number; username: string } };
 
 export default async function loginHandler(
   request: LoginNextApiRequest,
@@ -105,6 +106,7 @@ export default async function loginHandler(
     );
 
     // 4. Add the cookie to the header response
+
     response
       .status(201)
       .setHeader('Set-Cookie', serializedCookie)

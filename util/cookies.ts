@@ -16,7 +16,7 @@ export function getParsedCookie(key: string) {
   }
 }
 
-type LikedRecipe = { id: string; stars: number };
+type LikedRecipe = { id: number; stars: number };
 type LikedRecipes = LikedRecipe[];
 
 export function setParsedCookie(key: string, value: LikedRecipes) {

@@ -1,4 +1,3 @@
-// import { css } from '@emotion/react';
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -10,36 +9,20 @@ import {
   getRecipes,
   getValidSessionByToken,
   getUserByValidSessionToken,
-  Recipe,
 } from '../../util/database';
 import styles from './recipes.module.css';
 
-// const recipeStyles = css`
-//   border-radius: 5px;
-//   border: 1px solid #ccc;
-//   padding: 15px;
-//   margin-bottom: 20px;
-// `;
-type UserObject = {
-  username: string;
-};
-type Props = {
-  recipes: Recipe[];
-  likedRecipes: string[];
-  userObject: UserObject;
-  error: string;
-  cookieObject: { id: number; recipeId: number };
-};
-
-export default function RecipesRestricted(props: Props) {
+export default function RecipesRestricted(props) {
   const [likedArray, setLikedArray] = useState(props.likedRecipes);
+  // console.log('likedRecipes', props.likedRecipes);
 
-  function toggleRecipeLike(id: number) {
+  function toggleRecipeLike(id) {
     // 1. get the value of the cookie
     const cookieValue = getParsedCookie('likedRecipes') || [];
 
     // 2. update the cooke
     const existIdOnArray = cookieValue.some((cookieObject) => {
+      // console.log('cookieObject', cookieObject);
       return cookieObject.id === id;
     });
 
@@ -112,6 +95,7 @@ export default function RecipesRestricted(props: Props) {
       <div className={styles.mainName}>
         {props.recipes.map((recipe) => {
           const recipeIsLiked = likedArray.some((likedObject) => {
+            // console.log('likedObject', likedObject);
             return likedObject.id === recipe.id;
           });
           return (
@@ -139,7 +123,7 @@ export default function RecipesRestricted(props: Props) {
   );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
+export async function getServerSideProps(context) {
   const sessionToken = context.req.cookies.sessionToken;
   const session = await getValidSessionByToken(sessionToken);
 

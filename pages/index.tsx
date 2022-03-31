@@ -20,15 +20,15 @@ type Props = {
 };
 
 export default function Home(props: Props) {
-  const [userId, setUserId] = useState<number>();
-  function changeUserId(id: number) {
-    setUserId(id);
-  }
-  // Avoid error if userId is undefined
-  if (typeof userId === 'number') {
-    const multipliedUserId = userId * 2;
-    changeUserId(multipliedUserId);
-  }
+  // const [userId, setUserId] = useState<number>();
+  // function changeUserId(id: number) {
+  //   setUserId(id);
+  // }
+  // // Avoid error if userId is undefined
+  // if (typeof userId === 'number') {
+  //   const multipliedUserId = userId * 2;
+  //   changeUserId(multipliedUserId);
+  // }
 
   return (
     <Layout userObject={props.userObject}>

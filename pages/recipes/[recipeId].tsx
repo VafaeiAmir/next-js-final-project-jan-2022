@@ -63,7 +63,7 @@ export default function SingleRecipe(props: Props) {
         <Image
           src={`/home-pics/${props.recipe.id}.jpg`}
           width="400"
-          height="270"
+          height="320"
           alt="recipe picture"
         />
 
