@@ -1,6 +1,5 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
 import Head from 'next/head';
-
 import Layout from '../../components/Layout';
 import {
   getCommentsByUserId,
@@ -35,11 +34,13 @@ export default function ProtectedUser(props: Props) {
       <Head>
         <title>User profile</title>
       </Head>
-      <h1>Welcom to your own profile {props.user.username}</h1>
-      <div> This is your personal user id: {props.user.id}</div>
-      {props.commentsInProfile.map((comment) => {
-        return <div>{comment.comment}</div>;
-      })}
+      <div className={styles.dynamicPage}>
+        <h1>Welcom to your own profile {props.user.username}</h1>
+        <h2> This is your personal user id number: {props.user.id}</h2>
+        {props.commentsInProfile.map((comment) => {
+          return <div>Commented: {comment.comment}</div>;
+        })}
+      </div>
     </Layout>
   );
 }
