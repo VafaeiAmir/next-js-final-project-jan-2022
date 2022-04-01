@@ -64,7 +64,7 @@ export default function Login(props: Props) {
 
               // Get the query parameter from the Next.js router
               const returnTo = router.query.returnTo;
-              console.log('returnTo', returnTo);
+              // console.log('returnTo', returnTo);
 
               if (
                 returnTo &&
@@ -143,19 +143,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       };
     }
   }
-  // const sessionToken = context.req.cookies.sessionToken;
-
-  // const session = await getValidSessionByToken(sessionToken);
-
-  // if (!session) {
-
-  //   return {
-  //     redirect: {
-  //       destination: '/login?returnTo=/itempage',
-  //       permanent: false,
-  //     },
-  //   };
-  // }
 
   // 3. Otherwise, generate CSRF token and render the page
   return {

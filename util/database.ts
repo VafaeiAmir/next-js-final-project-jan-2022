@@ -116,7 +116,7 @@ export async function getUserWithPasswordHashByUsername(username: string) {
   return user && camelcaseKeys(user);
 }
 
-// Create Users
+// Create Users***************************************
 
 export async function createUser(username: string, passwordHash: string) {
   const [user] = await sql<[User]>`
@@ -153,7 +153,8 @@ export async function getValidSessionByToken(token: string | undefined) {
 
   return session && camelcaseKeys(session);
 }
-// Create session
+
+// Create session********************************************
 
 export async function createSession(token: string, userId: number) {
   const [session] = await sql<[Session]>`
@@ -199,6 +200,8 @@ export type Comment = {
   userId: number;
   comment?: string;
 };
+
+// Create comment ************************************
 
 export async function createComment(
   comment: string,
@@ -269,4 +272,50 @@ export async function deleteCommentById(id: number) {
     RETURNING *
   `;
   return deletedComment && camelcaseKeys(deletedComment);
+}
+
+// Create user recipes*************************************
+
+export type UserRecipe = {
+  id: number;
+  userRecipeId?: number;
+  userId: number;
+  username: string;
+};
+
+export async function createUserRecipe(
+  userId: number,
+  userRecipeName: string,
+  userRecipeText: string,
+  userRecipeIngredients: string,
+) {
+  const [usernewRecipeId] = await sql<[UserRecipe]>`
+    INSERT INTO userRecipes
+      ( name, text , ingredients, user_id)
+    VALUES
+      ( ${userRecipeName}, ${userRecipeText}, ${userRecipeIngredients}, ${userId} )
+    RETURNING
+    *
+  `;
+  return camelcaseKeys(usernewRecipeId);
+}
+export async function getUserRecipe() {
+  const userRecipes = await sql<UserRecipe[]>`
+SELECT userRecipes.id, userRecipes.user_id, userRecipes.name, userRecipes.text, userRecipes.ingredients, users.username FROM userRecipes ,
+users
+WHERE users.id = userRecipes.user_id
+;
+`;
+  return userRecipes.map((recipe) => camelcaseKeys(recipe));
+}
+// delete user recipe********************************
+export async function deleteUserRecipeById(id: number) {
+  const [deletedUserRecipes] = await sql<[UserRecipe | undefined]>`
+    DELETE FROM
+      userRecipes
+    WHERE
+     id = ${id}
+    RETURNING *
+  `;
+  return deletedUserRecipes && camelcaseKeys(deletedUserRecipes);
 }

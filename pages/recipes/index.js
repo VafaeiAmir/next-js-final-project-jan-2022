@@ -8,11 +8,14 @@ import {
   getRecipes,
   getValidSessionByToken,
   getUserByValidSessionToken,
+  getUserRecipe,
 } from '../../util/database';
 import styles from './recipes.module.css';
 
 export default function RecipesRestricted(props) {
   const [likedArray, setLikedArray] = useState(props.likedRecipes);
+  const [userRecipes, setUserRecipes] = useState(props.userRecipe);
+
   // console.log('likedRecipes', props.likedRecipes);
 
   function toggleRecipeLike(id) {
@@ -42,6 +45,26 @@ export default function RecipesRestricted(props) {
     setLikedArray(newCookie);
     setParsedCookie('likedRecipes', newCookie);
   }
+
+  const deleteUserRecipe = async (id) => {
+    const response = await fetch(`/api/userRecipe`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userRecipeId: id,
+      }),
+    });
+
+    const newResponse = await response.json();
+    console.log('newresponse', newResponse);
+    const newUserRecipe = userRecipes.filter((userRecipe) => {
+      return newResponse.deletedUserRecipe.id !== userRecipe.id;
+    });
+
+    setUserRecipes(newUserRecipe);
+  };
 
   if ('error' in props) {
     return (
@@ -94,7 +117,6 @@ export default function RecipesRestricted(props) {
       <div className={styles.mainName}>
         {props.recipes.map((recipe) => {
           const recipeIsLiked = likedArray.some((likedObject) => {
-            // console.log('likedObject', likedObject);
             return likedObject.id === recipe.id;
           });
           return (
@@ -114,6 +136,28 @@ export default function RecipesRestricted(props) {
                   {recipeIsLiked ? '😍' : '🤔'}
                 </button>
               </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className={styles.userRecipe}>
+        {userRecipes.map((recipe) => {
+          return (
+            <div key={recipe.id}>
+              <div className={styles.recipeText}>
+                <h3>{recipe.username}'s new recipe!</h3>
+                <h3>{recipe.name}</h3>
+                <a>{recipe.text}</a>
+                <p>Ingredients: {recipe.ingredients}</p>
+              </div>
+              {props.userObject.username === recipe.username && (
+                <button
+                  className={styles.deleteButton}
+                  onClick={() => deleteUserRecipe(recipe.id)}
+                >
+                  Remove
+                </button>
+              )}
             </div>
           );
         })}
@@ -143,6 +187,8 @@ export async function getServerSideProps(context) {
       },
     };
   }
+  const userRecipe = await getUserRecipe();
+  // console.log('userRecipe', userRecipe);
   const likedRecipesFromCookies = context.req.cookies.likedRecipes || '[]';
   const likedRecipes = JSON.parse(likedRecipesFromCookies);
   const recipes = await getRecipes();
@@ -150,6 +196,7 @@ export async function getServerSideProps(context) {
     props: {
       recipes: recipes,
       likedRecipes: likedRecipes,
+      userRecipe: userRecipe,
     },
   };
 }

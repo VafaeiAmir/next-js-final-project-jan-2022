@@ -1,5 +1,6 @@
 import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
+import { useState } from 'react';
 import Layout from '../../components/Layout';
 import {
   getCommentsByUserId,
@@ -14,30 +15,23 @@ type Props = {
     userId: number;
     comment: string | undefined;
   }[];
-  // recipe: Recipe;
-  // comment: string;
+
   userObject: { username: string };
   user: { id: number; username: string };
-  // recipeComment: {
-  //   comment: string;
-  //   username: string;
-  //   id: number;
-  //   recipe_id: number;
-  //   user_id: number;
-  // }[];
 };
 export default function ProtectedUser(props: Props) {
+  const [userRecipeName, setUserRecipeName] = useState('');
+  const [userRecipeText, setUserRecipeText] = useState('');
+  const [userRecipeIngredients, setUserRecipeIngredients] = useState('');
+
   return (
     <Layout userObject={props.userObject}>
       <Head>
         <title>User profile</title>
       </Head>
       <div className={styles.dynamicPage}>
-        <h1>Welcom to your own profile {props.user.username}</h1>
+        <h1>Welcome to your own profile {props.user.username}</h1>
         <h2> This is your personal user id number: {props.user.id}</h2>
-        {/* {props.recipesInProfile.map((recipe) => {
-          return <div>Recipe: {recipe.recipe}</div>;
-        })} */}
 
         {props.commentsInProfile.map((comment) => {
           return (
@@ -46,6 +40,54 @@ export default function ProtectedUser(props: Props) {
             </div>
           );
         })}
+      </div>
+      <div className={styles.container}>
+        <form
+          className={styles.logText}
+          onSubmit={async (event) => {
+            event.preventDefault();
+
+            await fetch('/api/userRecipe', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                userRecipeName: userRecipeName,
+                userRecipeText: userRecipeText,
+                userRecipeIngredients: userRecipeIngredients,
+                userId: props.user.id,
+              }),
+            });
+          }}
+        >
+          <h1>Create new recipe</h1>
+          <label className={styles.lable}>
+            Recipe name:{' '}
+            <input
+              value={userRecipeName}
+              onChange={(event) => setUserRecipeName(event.currentTarget.value)}
+            />
+          </label>
+          <label className={styles.lable}>
+            Text:{' '}
+            <input
+              value={userRecipeText}
+              onChange={(event) => setUserRecipeText(event.currentTarget.value)}
+            />
+          </label>
+          <label className={styles.lable}>
+            Ingredients:{' '}
+            <input
+              value={userRecipeIngredients}
+              onChange={(event) =>
+                setUserRecipeIngredients(event.currentTarget.value)
+              }
+            />
+          </label>
+
+          <button className={styles.loginButton}>Post</button>
+        </form>
       </div>
     </Layout>
   );
