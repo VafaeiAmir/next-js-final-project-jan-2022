@@ -46,3 +46,48 @@
   font-size: 0.9rem;
   transition: font-size 0.2s ease;
 }
+/* create new recipe field**************** */
+
+.logText {
+  display: grid;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  margin-top: 30px;
+  transform: translate(-50%, -50%);
+  padding-top: 10rem !important;
+}
+.container {
+  position: relative;
+  text-align: center;
+}
+.loginButton {
+  padding: 0.2rem;
+  margin: 0.2rem 5rem;
+  margin-right: 17px;
+  background-color: lightblue;
+  border-radius: 10px;
+}
+.loginButton:hover {
+  font-size: 0.9rem;
+  transition: font-size 0.2s ease;
+}
+.logText {
+  display: grid;
+  justify-content: center;
+  text-align: center;
+  position: absolute;
+  top: 1%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding-top: 10rem !important;
+}
+.lable {
+  justify-content: center;
+  text-align: end;
+  padding: 0.3rem 0;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin-bottom: 5px;
+}

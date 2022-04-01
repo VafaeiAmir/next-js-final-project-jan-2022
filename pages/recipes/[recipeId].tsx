@@ -28,7 +28,7 @@ export default function SingleRecipe(props: Props) {
   const [userComment, setUserComment] = useState<string>('');
   const [initialComments, setInitialComments] = useState(props.recipeComment);
 
-  console.log('props', props);
+  // console.log('props', props);
   const deleteComment = async (id: number) => {
     const response = await fetch(`/api/comment`, {
       method: 'DELETE',
@@ -104,25 +104,27 @@ export default function SingleRecipe(props: Props) {
           <button className={styles.postButton}>post</button>
         </form>
       </div>
-      {initialComments.length === 0 ? (
-        <div className={styles.commented}>Please add a comment! </div>
-      ) : (
-        initialComments.map((e) => {
-          return (
-            <div className={styles.commented} key={e.comment}>
-              {e.username}: {e.comment}{' '}
-              {props.userObject.username === e.username && (
-                <button
-                  className={styles.deleteButton}
-                  onClick={() => deleteComment(e.id)}
-                >
-                  X
-                </button>
-              )}
-            </div>
-          );
-        })
-      )}
+      <div>
+        {initialComments.length === 0 ? (
+          <div className={styles.commented}>Please add a comment! </div>
+        ) : (
+          initialComments.map((e) => {
+            return (
+              <li className={styles.commented} key={e.comment}>
+                {e.username}: {e.comment}{' '}
+                {props.userObject.username === e.username && (
+                  <button
+                    className={styles.deleteButton}
+                    onClick={() => deleteComment(e.id)}
+                  >
+                    X
+                  </button>
+                )}
+              </li>
+            );
+          })
+        )}
+      </div>
     </Layout>
   );
 }

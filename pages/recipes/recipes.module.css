@@ -11,6 +11,23 @@
   color: #660000;
 }
 
+.userRecipe {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(4, calc(((59vw - 4rem) / 3.5)));
+  grid-gap: 2rem;
+  grid-template-rows: auto;
+  margin-left: 130px;
+  margin-right: 130px;
+  padding: 0 2rem 0;
+
+  margin-left: 20px;
+  margin-right: 20px;
+
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
 .commentField {
   display: grid;
   justify-content: center;
@@ -94,7 +111,7 @@
   align-items: center;
   justify-content: center;
   background-color: red;
-  padding: 6px;
+  padding: 7px;
   border-radius: 2%;
   margin-left: 10px;
   color: white;
@@ -106,6 +123,7 @@
   font-size: 0.9rem;
   transition: font-size 0.2s ease;
 }
+
 .commented {
   display: flex;
   justify-content: space-between;
@@ -119,6 +137,7 @@
 .commentField {
   display: flex;
   justify-content: center;
+  margin: auto;
 }
 .recipeText {
   font-size: 1rem;
