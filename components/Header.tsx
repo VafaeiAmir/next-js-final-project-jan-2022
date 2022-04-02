@@ -3,15 +3,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { AnchorHTMLAttributes } from 'react';
 import { User } from '../util/database';
-// import styles from './header.module.css';
 
 const header = css`
+  display: flex;
+  justify-content: center;
   background-color: #ffe6d4;
   border-radius: 10px;
   padding: 10px 10px;
   margin: 8px 10px 5px;
+  /* margin-left: 120px;
+  margin-right: 10px; */
   font-size: 1.2rem;
-  display: flex;
 
   a + a {
     margin-left: 20px;

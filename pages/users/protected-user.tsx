@@ -40,54 +40,62 @@ export default function ProtectedUser(props: Props) {
             </div>
           );
         })}
-      </div>
-      <div className={styles.container}>
-        <form
-          className={styles.logText}
-          onSubmit={async (event) => {
-            event.preventDefault();
 
-            await fetch('/api/userRecipe', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                userRecipeName: userRecipeName,
-                userRecipeText: userRecipeText,
-                userRecipeIngredients: userRecipeIngredients,
-                userId: props.user.id,
-              }),
-            });
-          }}
-        >
-          <h1>Create new recipe</h1>
-          <label className={styles.lable}>
-            Recipe name:{' '}
-            <input
-              value={userRecipeName}
-              onChange={(event) => setUserRecipeName(event.currentTarget.value)}
-            />
-          </label>
-          <label className={styles.lable}>
-            Text:{' '}
-            <input
-              value={userRecipeText}
-              onChange={(event) => setUserRecipeText(event.currentTarget.value)}
-            />
-          </label>
-          <label className={styles.lable}>
-            Ingredients:{' '}
-            <input
-              value={userRecipeIngredients}
-              onChange={(event) =>
-                setUserRecipeIngredients(event.currentTarget.value)
-              }
-            />
-          </label>
+        <div>
+          <form
+            className={styles.logText}
+            onSubmit={async (event) => {
+              event.preventDefault();
 
-          <button className={styles.loginButton}>Post</button>
-        </form>
+              await fetch('/api/userRecipe', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  userRecipeName: userRecipeName,
+                  userRecipeText: userRecipeText,
+                  userRecipeIngredients: userRecipeIngredients,
+                  userId: props.user.id,
+                }),
+              });
+            }}
+          >
+            <h1>Create new recipe</h1>
+            <label className={styles.lable}>
+              Recipe name:{' '}
+              <input
+                className={styles.nameInput}
+                value={userRecipeName}
+                onChange={(event) =>
+                  setUserRecipeName(event.currentTarget.value)
+                }
+              />
+            </label>
+            <label className={styles.lable}>
+              Text:{' '}
+              <textarea
+                className={styles.textArea1}
+                value={userRecipeText}
+                onChange={(event) =>
+                  setUserRecipeText(event.currentTarget.value)
+                }
+              />
+            </label>
+            <label className={styles.lable}>
+              Ingredients:{' '}
+              <textarea
+                className={styles.textArea2}
+                value={userRecipeIngredients}
+                onChange={(event) =>
+                  setUserRecipeIngredients(event.currentTarget.value)
+                }
+              />
+            </label>
+
+            <button className={styles.postButton}>Post</button>
+          </form>
+        </div>
       </div>
     </Layout>
   );

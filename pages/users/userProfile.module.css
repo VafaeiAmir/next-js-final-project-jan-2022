@@ -2,8 +2,8 @@
   display: grid;
   justify-content: center;
   align-items: center;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 240px;
+  margin-right: 240px;
 }
 .ingred {
   width: 450px;
@@ -48,46 +48,38 @@
 }
 /* create new recipe field**************** */
 
-.logText {
-  display: grid;
-  justify-content: center;
-  text-align: center;
-  position: absolute;
-  margin-top: 30px;
-  transform: translate(-50%, -50%);
-  padding-top: 10rem !important;
-}
-.container {
-  position: relative;
-  text-align: center;
-}
-.loginButton {
-  padding: 0.2rem;
-  margin: 0.2rem 5rem;
-  margin-right: 17px;
-  background-color: lightblue;
+.postButton {
+  padding: 8px;
+  width: 100px;
+  /* margin: 0.2rem 5rem; */
+  /* margin-right: 17px; */
+  background-color: rgb(166, 209, 230);
   border-radius: 10px;
 }
-.loginButton:hover {
-  font-size: 0.9rem;
+.postButton:hover {
+  font-size: 1rem;
   transition: font-size 0.2s ease;
 }
-.logText {
-  display: grid;
-  justify-content: center;
-  text-align: center;
-  position: absolute;
-  top: 1%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding-top: 10rem !important;
-}
+
 .lable {
-  justify-content: center;
-  text-align: end;
-  padding: 0.3rem 0;
+  display: grid;
+  justify-content: flex-start;
   border-radius: 10px;
   border: 1px solid #ccc;
-  padding: 5px;
-  margin-bottom: 5px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+.textArea1 {
+  border-radius: 5px;
+  width: 400px;
+}
+.textArea2 {
+  border-radius: 5px;
+  width: 400px;
+  height: 150px;
+}
+.nameInput {
+  border-radius: 5px;
+  width: 200px;
+  height: 25px;
 }

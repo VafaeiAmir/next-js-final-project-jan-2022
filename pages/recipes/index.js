@@ -145,8 +145,8 @@ export default function RecipesRestricted(props) {
           return (
             <div key={recipe.id}>
               <div className={styles.recipeText}>
-                <h3>{recipe.username}'s new recipe!</h3>
-                <h3>{recipe.name}</h3>
+                <h2>{recipe.username}'s recipe!</h2>
+                <h1>{recipe.name}</h1>
                 <a>{recipe.text}</a>
                 <p>Ingredients: {recipe.ingredients}</p>
               </div>

@@ -2,30 +2,17 @@
 .mainName {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(4, calc(((59vw - 4rem) / 3.5)));
-  grid-gap: 2rem;
+  grid-template-columns: repeat(4, calc(((70vw - 4rem) / 3.5)));
+  grid-gap: 1rem;
   grid-template-rows: auto;
-  margin-left: 130px;
-  margin-right: 130px;
-  padding: 0 2rem 0;
-  color: #660000;
 }
 
 .userRecipe {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(4, calc(((59vw - 4rem) / 3.5)));
-  grid-gap: 2rem;
+  grid-template-columns: repeat(4, calc(((70vw - 4rem) / 3.5)));
+  grid-gap: 1rem;
   grid-template-rows: auto;
-  margin-left: 130px;
-  margin-right: 130px;
-  padding: 0 2rem 0;
-
-  margin-left: 20px;
-  margin-right: 20px;
-
-  padding: 10px;
-  margin-bottom: 10px;
 }
 
 .commentField {
@@ -42,8 +29,8 @@
 .recipeText {
   border-radius: 5px;
   border: 1px solid #ccc;
-  padding: 20px;
-  margin-bottom: 10px;
+  /* padding: 20px; */
+  margin-bottom: 2px;
 }
 .downText {
   text-align: center;
@@ -53,12 +40,9 @@
 .recipesImage {
   display: grid;
   justify-content: center;
-  grid-template-columns: repeat(4, calc(((59vw - 4rem) / 3.5)));
-  grid-gap: 2rem;
+  grid-template-columns: repeat(4, calc(((70vw - 4rem) / 3.5)));
+  grid-gap: 1rem;
   grid-template-rows: auto;
-  margin-left: 100px;
-  margin-right: 100px;
-  padding: 0 2rem 0;
 }
 
 .downText {
@@ -112,7 +96,7 @@
   justify-content: center;
   background-color: red;
   padding: 7px;
-  border-radius: 2%;
+  border-radius: 10%;
   margin-left: 10px;
   color: white;
   height: 15px;
@@ -123,11 +107,14 @@
   font-size: 0.9rem;
   transition: font-size 0.2s ease;
 }
+.commentTextArea {
+  width: 300px;
+}
 
 .commented {
   display: flex;
   justify-content: space-between;
-  width: 320px;
+  width: 390px;
   background-color: aliceblue;
   border-radius: 10px;
   border: 2px solid #ccc;
@@ -144,5 +131,23 @@
   border-radius: 5px;
   border: 1px solid #ccc;
   padding: 20px;
+  margin-bottom: 10px;
+}
+.postButton {
+  justify-content: center;
+  background-color: rgb(225, 241, 241);
+  font-family: Arial, Helvetica, sans-serif;
+  /* font-size: medium; */
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 70px;
+  height: 30px;
+}
+.postButton:hover {
+  font-size: 1rem;
+  transition: font-size 0.2s ease;
+}
+.commentTextArea {
+  border-radius: 5px;
   margin-bottom: 10px;
 }

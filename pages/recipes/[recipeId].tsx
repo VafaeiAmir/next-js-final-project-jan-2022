@@ -58,6 +58,7 @@ export default function SingleRecipe(props: Props) {
           content={`${props.recipe.name} is a persian dish that can be cooked with rice`}
         />
       </Head>
+
       <div className={styles.dynamicPage}>
         <h1>{props.recipe.name}</h1>
         <Image
@@ -68,42 +69,43 @@ export default function SingleRecipe(props: Props) {
         />
 
         <h1 className={styles.recipeText}>{props.recipe.text}</h1>
-        <p className={styles.ingred}>{props.recipe.ingredients}</p>
-
-        <form
-          className={styles.commentField}
-          onSubmit={async (event) => {
-            event.preventDefault();
-            const commentResponse = await fetch('/api/comment', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                userComment: userComment,
-                recipeId: props.recipe.id,
-                userId: props.userId,
-                username: props.userObject.username,
-              }),
-            });
-            const newComment = await commentResponse.json();
-            // console.log('commentResponse.body', newComment);
-            setUserComment('');
-            const newCommentList = [...initialComments, newComment];
-            setInitialComments(newCommentList);
-
-            return;
-          }}
-        >
-          <label>
-            <textarea
-              value={userComment}
-              onChange={(event) => setUserComment(event.currentTarget.value)}
-            />
-          </label>
-          <button className={styles.postButton}>post</button>
-        </form>
+        <text className={styles.ingred}>{props.recipe.ingredients}</text>
       </div>
+      <form
+        className={styles.commentField}
+        onSubmit={async (event) => {
+          event.preventDefault();
+          const commentResponse = await fetch('/api/comment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userComment: userComment,
+              recipeId: props.recipe.id,
+              userId: props.userId,
+              username: props.userObject.username,
+            }),
+          });
+          const newComment = await commentResponse.json();
+          // console.log('commentResponse.body', newComment);
+          setUserComment('');
+          const newCommentList = [...initialComments, newComment];
+          setInitialComments(newCommentList);
+
+          return;
+        }}
+      >
+        <label>
+          <textarea
+            className={styles.commentTextArea}
+            value={userComment}
+            onChange={(event) => setUserComment(event.currentTarget.value)}
+          />
+        </label>
+        <button className={styles.postButton}>Post</button>
+      </form>
+
       <div>
         {initialComments.length === 0 ? (
           <div className={styles.commented}>Please add a comment! </div>

@@ -1,5 +1,5 @@
 import 'react-slideshow-image/dist/styles.css';
-// import { AnimatePresence, domAnimation, LazyMotion, m } from 'framer-motion';
+
 import Head from 'next/head';
 import Image from 'next/image';
 
@@ -20,16 +20,6 @@ type Props = {
 };
 
 export default function Home(props: Props) {
-  // const [userId, setUserId] = useState<number>();
-  // function changeUserId(id: number) {
-  //   setUserId(id);
-  // }
-  // // Avoid error if userId is undefined
-  // if (typeof userId === 'number') {
-  //   const multipliedUserId = userId * 2;
-  //   changeUserId(multipliedUserId);
-  // }
-
   return (
     <Layout userObject={props.userObject}>
       <Head>
@@ -46,13 +36,7 @@ export default function Home(props: Props) {
                 style={{ height: '70vh', width: '100%' }}
               >
                 {' '}
-                <Image
-                  className={styles.image}
-                  src={slideImage}
-                  alt="sample"
-                  width={930}
-                  height={580}
-                />
+                <Image src={slideImage} alt="sample" width={930} height={580} />
               </div>
             </div>
           ))}
